@@ -1,0 +1,2608 @@
+{
+  "title": "An ninh di động — Bộ 100 câu trắc nghiệm",
+  "description": "Bộ câu hỏi ôn tập môn An ninh di động: mô hình bảo mật, mối đe dọa, lỗ hổng, mã độc, quyền ứng dụng, xác thực, mã hóa, bảo mật Android/iOS, bảo mật mạng di động, tấn công và phòng chống.",
+  "image_url": "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?w=800&q=80",
+  "time_limit_seconds": 6000,
+  "questions": [
+    {
+      "type": "single",
+      "text": "Bộ ba CIA (CIA triad) trong an ninh thông tin gồm những thành phần nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Mã hóa, Xác thực, Ủy quyền"
+        },
+        {
+          "key": "B",
+          "text": "Bí mật, Sao lưu, Khôi phục"
+        },
+        {
+          "key": "C",
+          "text": "Tính bí mật, Tính toàn vẹn, Tính sẵn sàng"
+        },
+        {
+          "key": "D",
+          "text": "Kiểm soát, Giám sát, Phản hồi"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "CIA = Confidentiality (bí mật), Integrity (toàn vẹn), Availability (sẵn sàng)."
+    },
+    {
+      "type": "single",
+      "text": "Trong an ninh di động, 'tính toàn vẹn' (integrity) bảo đảm điều gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Dữ liệu luôn sẵn sàng khi cần"
+        },
+        {
+          "key": "B",
+          "text": "Dữ liệu không bị sửa đổi trái phép"
+        },
+        {
+          "key": "C",
+          "text": "Chỉ người được phép mới đọc được dữ liệu"
+        },
+        {
+          "key": "D",
+          "text": "Thiết bị luôn được cập nhật"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Tính toàn vẹn bảo đảm dữ liệu không bị thay đổi/giả mạo trái phép."
+    },
+    {
+      "type": "single",
+      "text": "Khái niệm 'attack surface' (bề mặt tấn công) của thiết bị di động là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tập hợp các điểm mà kẻ tấn công có thể khai thác"
+        },
+        {
+          "key": "B",
+          "text": "Diện tích màn hình thiết bị"
+        },
+        {
+          "key": "C",
+          "text": "Tổng dung lượng lưu trữ"
+        },
+        {
+          "key": "D",
+          "text": "Số lượng ứng dụng đã cài"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Bề mặt tấn công là tập hợp mọi điểm vào/lỗ hổng mà kẻ tấn công có thể lợi dụng."
+    },
+    {
+      "type": "single",
+      "text": "Nguyên tắc 'least privilege' (đặc quyền tối thiểu) nghĩa là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cấp cho ứng dụng càng nhiều quyền càng tốt"
+        },
+        {
+          "key": "B",
+          "text": "Không cấp bất kỳ quyền nào"
+        },
+        {
+          "key": "C",
+          "text": "Cấp quyền root cho mọi ứng dụng tin cậy"
+        },
+        {
+          "key": "D",
+          "text": "Chỉ cấp quyền tối thiểu cần thiết để hoàn thành nhiệm vụ"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Least privilege: chỉ cấp đúng và đủ quyền cần thiết, giảm thiệt hại khi bị xâm phạm."
+    },
+    {
+      "type": "single",
+      "text": "Cơ chế 'sandbox' của ứng dụng di động có mục đích chính là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cô lập ứng dụng để hạn chế truy cập tài nguyên của ứng dụng khác và hệ thống"
+        },
+        {
+          "key": "B",
+          "text": "Tăng tốc độ chạy ứng dụng"
+        },
+        {
+          "key": "C",
+          "text": "Nén dữ liệu ứng dụng"
+        },
+        {
+          "key": "D",
+          "text": "Tự động cập nhật ứng dụng"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Sandbox cô lập mỗi ứng dụng trong vùng riêng, ngăn truy cập trái phép tới dữ liệu/tài nguyên khác."
+    },
+    {
+      "type": "single",
+      "text": "Trong tam giác bảo mật, yếu tố nào thường mâu thuẫn với mức độ bảo mật cao?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Màu sắc giao diện"
+        },
+        {
+          "key": "B",
+          "text": "Dung lượng pin"
+        },
+        {
+          "key": "C",
+          "text": "Tính khả dụng/tiện dụng (usability)"
+        },
+        {
+          "key": "D",
+          "text": "Độ phân giải màn hình"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Thường có sự đánh đổi giữa bảo mật và sự tiện dụng cho người dùng."
+    },
+    {
+      "type": "single",
+      "text": "Khái niệm 'root of trust' trong thiết bị di động đề cập đến điều gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tài khoản quản trị viên"
+        },
+        {
+          "key": "B",
+          "text": "Mật khẩu mặc định của nhà sản xuất"
+        },
+        {
+          "key": "C",
+          "text": "Ứng dụng diệt virus"
+        },
+        {
+          "key": "D",
+          "text": "Thành phần nền tảng đáng tin cậy làm gốc cho chuỗi tin cậy"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Root of trust là phần cứng/phần mềm tin cậy ban đầu, làm nền cho secure/verified boot."
+    },
+    {
+      "type": "single",
+      "text": "'Secure boot' (khởi động an toàn) bảo vệ thiết bị bằng cách nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Chỉ kiểm tra mật khẩu người dùng"
+        },
+        {
+          "key": "B",
+          "text": "Xác minh chữ ký số của từng thành phần trước khi nạp khi khởi động"
+        },
+        {
+          "key": "C",
+          "text": "Xóa toàn bộ dữ liệu mỗi lần khởi động"
+        },
+        {
+          "key": "D",
+          "text": "Tăng tốc quá trình khởi động"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Secure boot xác minh chữ ký mỗi tầng (bootloader, kernel...) để chặn mã đã bị sửa đổi."
+    },
+    {
+      "type": "single",
+      "text": "TEE (Trusted Execution Environment) trên thiết bị di động dùng để làm gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Lưu ảnh và video"
+        },
+        {
+          "key": "B",
+          "text": "Chạy mã và xử lý dữ liệu nhạy cảm trong môi trường cô lập, an toàn"
+        },
+        {
+          "key": "C",
+          "text": "Tăng độ sáng màn hình"
+        },
+        {
+          "key": "D",
+          "text": "Quản lý danh bạ"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "TEE là vùng thực thi cô lập với hệ điều hành chính, dùng cho khóa, sinh trắc, thanh toán..."
+    },
+    {
+      "type": "single",
+      "text": "Mô hình 'permission-based' của hệ điều hành di động nhằm mục đích gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tăng dung lượng RAM"
+        },
+        {
+          "key": "B",
+          "text": "Tự động sao lưu"
+        },
+        {
+          "key": "C",
+          "text": "Kiểm soát việc ứng dụng truy cập tài nguyên/dữ liệu nhạy cảm"
+        },
+        {
+          "key": "D",
+          "text": "Tối ưu pin"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Mô hình quyền kiểm soát ứng dụng truy cập camera, vị trí, danh bạ... theo cấp phép."
+    },
+    {
+      "type": "single",
+      "text": "Tấn công 'phishing' nhắm vào người dùng di động thường nhằm mục đích gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Lừa người dùng cung cấp thông tin nhạy cảm (mật khẩu, OTP...)"
+        },
+        {
+          "key": "B",
+          "text": "Tăng hiệu năng thiết bị"
+        },
+        {
+          "key": "C",
+          "text": "Cập nhật hệ điều hành"
+        },
+        {
+          "key": "D",
+          "text": "Sao lưu dữ liệu"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Phishing lừa người dùng tiết lộ thông tin đăng nhập/thanh toán qua email, SMS, web giả."
+    },
+    {
+      "type": "single",
+      "text": "'Smishing' là hình thức tấn công nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Phishing qua cuộc gọi thoại"
+        },
+        {
+          "key": "B",
+          "text": "Tấn công từ chối dịch vụ"
+        },
+        {
+          "key": "C",
+          "text": "Bẻ khóa mã hóa"
+        },
+        {
+          "key": "D",
+          "text": "Phishing qua tin nhắn SMS"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Smishing = SMS + phishing, lừa đảo qua tin nhắn văn bản."
+    },
+    {
+      "type": "single",
+      "text": "'Vishing' là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Lừa đảo qua email"
+        },
+        {
+          "key": "B",
+          "text": "Lừa đảo qua mã QR"
+        },
+        {
+          "key": "C",
+          "text": "Lừa đảo qua cuộc gọi thoại (voice)"
+        },
+        {
+          "key": "D",
+          "text": "Tấn công vào Wi-Fi"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Vishing = voice + phishing, lừa đảo qua điện thoại/giọng nói."
+    },
+    {
+      "type": "single",
+      "text": "Tấn công 'Man-in-the-Middle' (MitM) trên mạng di động là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Kẻ tấn công chen vào giữa và nghe lén/can thiệp luồng dữ liệu giữa hai bên"
+        },
+        {
+          "key": "B",
+          "text": "Tấn công làm cạn pin"
+        },
+        {
+          "key": "C",
+          "text": "Cài quá nhiều ứng dụng"
+        },
+        {
+          "key": "D",
+          "text": "Xóa dữ liệu từ xa"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "MitM: kẻ tấn công đứng giữa hai bên giao tiếp để nghe lén hoặc sửa đổi dữ liệu."
+    },
+    {
+      "type": "single",
+      "text": "Vì sao Wi-Fi công cộng (miễn phí) là một mối đe dọa với thiết bị di động?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tốc độ luôn chậm"
+        },
+        {
+          "key": "B",
+          "text": "Tốn nhiều pin hơn 4G"
+        },
+        {
+          "key": "C",
+          "text": "Làm nóng thiết bị"
+        },
+        {
+          "key": "D",
+          "text": "Dễ bị nghe lén, tấn công MitM và điểm phát giả (evil twin)"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Wi-Fi công cộng thường thiếu mã hóa/kiểm soát, dễ bị nghe lén và giả mạo điểm phát."
+    },
+    {
+      "type": "single",
+      "text": "Tấn công 'BlueBorne' khai thác công nghệ kết nối nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "NFC"
+        },
+        {
+          "key": "B",
+          "text": "Bluetooth"
+        },
+        {
+          "key": "C",
+          "text": "Wi-Fi"
+        },
+        {
+          "key": "D",
+          "text": "USB"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "BlueBorne là nhóm lỗ hổng Bluetooth cho phép chiếm thiết bị không cần ghép đôi."
+    },
+    {
+      "type": "single",
+      "text": "'Social engineering' (kỹ thuật xã hội) khai thác yếu tố nào là chính?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Lỗi phần cứng"
+        },
+        {
+          "key": "B",
+          "text": "Lỗ hổng trình biên dịch"
+        },
+        {
+          "key": "C",
+          "text": "Tâm lý và hành vi con người"
+        },
+        {
+          "key": "D",
+          "text": "Tốc độ CPU"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Social engineering lợi dụng sự tin tưởng, sợ hãi, tò mò... của con người thay vì lỗi kỹ thuật."
+    },
+    {
+      "type": "single",
+      "text": "Tấn công 'SIM swapping' nhằm mục đích gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tăng tốc độ mạng"
+        },
+        {
+          "key": "B",
+          "text": "Chiếm số điện thoại của nạn nhân để nhận OTP và chiếm tài khoản"
+        },
+        {
+          "key": "C",
+          "text": "Nhân đôi dung lượng SIM"
+        },
+        {
+          "key": "D",
+          "text": "Khóa màn hình thiết bị"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "SIM swapping lừa nhà mạng chuyển số sang SIM của kẻ tấn công để cướp OTP/2FA."
+    },
+    {
+      "type": "single",
+      "text": "Mối đe dọa 'shoulder surfing' đối với thiết bị di động là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Nhìn trộm qua vai khi người dùng nhập mật khẩu/PIN"
+        },
+        {
+          "key": "B",
+          "text": "Tấn công vào vai trò quản trị"
+        },
+        {
+          "key": "C",
+          "text": "Tấn công DDoS"
+        },
+        {
+          "key": "D",
+          "text": "Lây nhiễm qua Bluetooth"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Shoulder surfing là quan sát trực tiếp màn hình/bàn phím để đánh cắp thông tin."
+    },
+    {
+      "type": "single",
+      "text": "Tấn công từ chối dịch vụ (DoS) nhắm vào dịch vụ di động gây hậu quả gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Đánh cắp danh bạ"
+        },
+        {
+          "key": "B",
+          "text": "Mã hóa toàn bộ dữ liệu"
+        },
+        {
+          "key": "C",
+          "text": "Tăng băng thông"
+        },
+        {
+          "key": "D",
+          "text": "Làm dịch vụ/hệ thống quá tải, không thể phục vụ người dùng hợp lệ"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "DoS làm cạn tài nguyên khiến dịch vụ không sẵn sàng (ảnh hưởng tính Availability)."
+    },
+    {
+      "type": "single",
+      "text": "Lỗ hổng 'zero-day' là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Lỗ hổng chưa được nhà cung cấp biết/vá và có thể đang bị khai thác"
+        },
+        {
+          "key": "B",
+          "text": "Lỗ hổng đã được vá từ lâu"
+        },
+        {
+          "key": "C",
+          "text": "Lỗ hổng chỉ tồn tại 0 ngày"
+        },
+        {
+          "key": "D",
+          "text": "Lỗ hổng không gây hại"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Zero-day là lỗ hổng chưa có bản vá; kẻ tấn công có thể khai thác trước khi được khắc phục."
+    },
+    {
+      "type": "single",
+      "text": "Lỗ hổng 'insecure data storage' trong OWASP Mobile Top 10 liên quan đến gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Lưu dữ liệu trên đám mây quá nhiều"
+        },
+        {
+          "key": "B",
+          "text": "Lưu dữ liệu nhạy cảm không mã hóa/bảo vệ kém trên thiết bị"
+        },
+        {
+          "key": "C",
+          "text": "Ổ cứng đầy"
+        },
+        {
+          "key": "D",
+          "text": "Backup quá thường xuyên"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Lưu trữ không an toàn: lưu token, mật khẩu, PII ở dạng rõ hoặc nơi dễ truy cập."
+    },
+    {
+      "type": "single",
+      "text": "Lỗ hổng 'insecure communication' trên ứng dụng di động thường do nguyên nhân nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Dùng HTTPS đúng cách"
+        },
+        {
+          "key": "B",
+          "text": "Dùng mật khẩu mạnh"
+        },
+        {
+          "key": "C",
+          "text": "Truyền dữ liệu không mã hóa hoặc không kiểm tra chứng chỉ TLS"
+        },
+        {
+          "key": "D",
+          "text": "Cập nhật ứng dụng thường xuyên"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Giao tiếp không an toàn: dùng HTTP, bỏ qua kiểm tra chứng chỉ, cho phép cleartext traffic."
+    },
+    {
+      "type": "single",
+      "text": "Tấn công 'SQL Injection' trên backend của ứng dụng di động khai thác điều gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Pin yếu"
+        },
+        {
+          "key": "B",
+          "text": "Màn hình cảm ứng lỗi"
+        },
+        {
+          "key": "C",
+          "text": "Bluetooth bật"
+        },
+        {
+          "key": "D",
+          "text": "Đầu vào người dùng không được kiểm tra/escapes khi ghép câu lệnh SQL"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "SQLi chèn mã SQL vào input không được lọc, truy vấn/sửa dữ liệu trái phép."
+    },
+    {
+      "type": "single",
+      "text": "Lỗi tràn bộ đệm (buffer overflow) có thể dẫn đến hậu quả nghiêm trọng nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Thực thi mã tùy ý của kẻ tấn công"
+        },
+        {
+          "key": "B",
+          "text": "Chỉ làm chậm máy"
+        },
+        {
+          "key": "C",
+          "text": "Tăng dung lượng pin"
+        },
+        {
+          "key": "D",
+          "text": "Cải thiện hiệu năng"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Buffer overflow ghi đè vùng nhớ, có thể chuyển hướng thực thi sang mã độc (RCE)."
+    },
+    {
+      "type": "single",
+      "text": "Biện pháp 'code obfuscation' (làm rối mã) nhằm mục đích gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tăng tốc biên dịch"
+        },
+        {
+          "key": "B",
+          "text": "Giảm dung lượng ứng dụng"
+        },
+        {
+          "key": "C",
+          "text": "Mã hóa lưu lượng mạng"
+        },
+        {
+          "key": "D",
+          "text": "Làm mã khó đọc/dịch ngược để cản trở phân tích"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Obfuscation làm rối tên/luồng mã, gây khó khăn cho reverse engineering (không phải mã hóa dữ liệu)."
+    },
+    {
+      "type": "single",
+      "text": "Lỗ hổng 'improper platform usage' (OWASP) là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cài quá nhiều app"
+        },
+        {
+          "key": "B",
+          "text": "Dùng sai/không tận dụng đúng cơ chế bảo mật do nền tảng cung cấp"
+        },
+        {
+          "key": "C",
+          "text": "Dùng pin không chính hãng"
+        },
+        {
+          "key": "D",
+          "text": "Bật chế độ máy bay"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Ví dụ: dùng sai Keychain/Keystore, lạm dụng intent, sai cấu hình quyền của nền tảng."
+    },
+    {
+      "type": "single",
+      "text": "Tấn công 'tapjacking' trên Android lợi dụng điều gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cảm biến vân tay"
+        },
+        {
+          "key": "B",
+          "text": "Kết nối NFC"
+        },
+        {
+          "key": "C",
+          "text": "Lớp phủ (overlay) lừa người dùng chạm vào thành phần ẩn bên dưới"
+        },
+        {
+          "key": "D",
+          "text": "Bộ nhớ ngoài"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Tapjacking dùng overlay trong suốt để 'cướp' thao tác chạm vào UI bên dưới."
+    },
+    {
+      "type": "single",
+      "text": "'Side-channel attack' trên thiết bị di động khai thác điều gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Mật khẩu mặc định"
+        },
+        {
+          "key": "B",
+          "text": "Thông tin rò rỉ gián tiếp như thời gian, điện năng, bức xạ điện từ"
+        },
+        {
+          "key": "C",
+          "text": "Lỗi giao diện"
+        },
+        {
+          "key": "D",
+          "text": "Tên ứng dụng"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Side-channel suy ra bí mật từ kênh phụ: timing, power, EM, cache... không tấn công trực tiếp thuật toán."
+    },
+    {
+      "type": "single",
+      "text": "Phần mềm độc hại (malware) di động là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Phần mềm hợp pháp của hệ điều hành"
+        },
+        {
+          "key": "B",
+          "text": "Trình duyệt web"
+        },
+        {
+          "key": "C",
+          "text": "Ứng dụng bản đồ"
+        },
+        {
+          "key": "D",
+          "text": "Chương trình được thiết kế để gây hại, đánh cắp hoặc kiểm soát thiết bị trái phép"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Malware là phần mềm độc hại nhằm phá hoại, đánh cắp dữ liệu hoặc chiếm quyền điều khiển."
+    },
+    {
+      "type": "single",
+      "text": "'Spyware' trên thiết bị di động có đặc điểm gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Bí mật theo dõi và thu thập thông tin người dùng"
+        },
+        {
+          "key": "B",
+          "text": "Hiển thị quảng cáo gây phiền"
+        },
+        {
+          "key": "C",
+          "text": "Tăng tốc thiết bị"
+        },
+        {
+          "key": "D",
+          "text": "Dọn rác bộ nhớ"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Spyware âm thầm giám sát hoạt động, thu thập dữ liệu (vị trí, tin nhắn, danh bạ...)."
+    },
+    {
+      "type": "single",
+      "text": "'Trojan' (ngựa thành Troy) khác virus ở điểm nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Trojan tự nhân bản, virus thì không"
+        },
+        {
+          "key": "B",
+          "text": "Trojan không gây hại"
+        },
+        {
+          "key": "C",
+          "text": "Trojan giả dạng phần mềm hợp pháp để lừa người dùng cài đặt"
+        },
+        {
+          "key": "D",
+          "text": "Trojan chỉ chạy trên iOS"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Trojan ngụy trang là ứng dụng hữu ích để dụ cài đặt; nó không tự nhân bản như virus/worm."
+    },
+    {
+      "type": "single",
+      "text": "Mã độc 'worm' (sâu) lây lan như thế nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tự nhân bản và lây lan qua mạng mà không cần can thiệp"
+        },
+        {
+          "key": "B",
+          "text": "Cần người dùng mở tệp mỗi lần"
+        },
+        {
+          "key": "C",
+          "text": "Chỉ lây qua cáp USB"
+        },
+        {
+          "key": "D",
+          "text": "Không thể lây lan"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Worm tự sao chép và phát tán qua mạng, không cần tệp chủ hay thao tác người dùng."
+    },
+    {
+      "type": "single",
+      "text": "'Adware' chủ yếu gây ra điều gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Mã hóa toàn bộ dữ liệu"
+        },
+        {
+          "key": "B",
+          "text": "Phá hủy phần cứng"
+        },
+        {
+          "key": "C",
+          "text": "Tăng tốc CPU"
+        },
+        {
+          "key": "D",
+          "text": "Hiển thị quảng cáo không mong muốn, đôi khi thu thập dữ liệu"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Adware tràn ngập quảng cáo, có thể theo dõi hành vi để nhắm mục tiêu."
+    },
+    {
+      "type": "single",
+      "text": "'Rootkit' nguy hiểm vì sao?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Chỉ làm chậm máy"
+        },
+        {
+          "key": "B",
+          "text": "Ẩn mình ở tầng sâu hệ thống và che giấu sự hiện diện của mã độc"
+        },
+        {
+          "key": "C",
+          "text": "Tự gỡ cài đặt"
+        },
+        {
+          "key": "D",
+          "text": "Chỉ ảnh hưởng pin"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Rootkit chiếm quyền cao, che giấu tiến trình/tệp để duy trì kiểm soát lâu dài và khó phát hiện."
+    },
+    {
+      "type": "single",
+      "text": "Kênh điều khiển mã độc thường được gọi là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "DNS"
+        },
+        {
+          "key": "B",
+          "text": "DHCP"
+        },
+        {
+          "key": "C",
+          "text": "C&C (Command and Control)"
+        },
+        {
+          "key": "D",
+          "text": "MAC"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Máy chủ C&C (C2) gửi lệnh và nhận dữ liệu từ các thiết bị bị nhiễm."
+    },
+    {
+      "type": "single",
+      "text": "Cách phổ biến nhất khiến thiết bị di động nhiễm mã độc là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cập nhật hệ điều hành chính thức"
+        },
+        {
+          "key": "B",
+          "text": "Bật chế độ máy bay"
+        },
+        {
+          "key": "C",
+          "text": "Cài ứng dụng từ nguồn không tin cậy / kho ứng dụng bên thứ ba"
+        },
+        {
+          "key": "D",
+          "text": "Sạc pin"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Sideloading từ nguồn lạ là con đường lây nhiễm phổ biến; nên dùng kho chính thức."
+    },
+    {
+      "type": "single",
+      "text": "'Repackaging' ứng dụng (đóng gói lại) là kỹ thuật phát tán mã độc như thế nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Nén ứng dụng để tải nhanh hơn"
+        },
+        {
+          "key": "B",
+          "text": "Dịch ứng dụng sang tiếng khác"
+        },
+        {
+          "key": "C",
+          "text": "Cập nhật giao diện"
+        },
+        {
+          "key": "D",
+          "text": "Chèn mã độc vào ứng dụng hợp pháp rồi phát hành lại"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Kẻ tấn công tháo APK, nhúng payload độc hại rồi ký lại và phát tán bản giả."
+    },
+    {
+      "type": "single",
+      "text": "'Dropper' trong mã độc có vai trò gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tải/giải nén và cài đặt payload độc hại lên thiết bị"
+        },
+        {
+          "key": "B",
+          "text": "Hiển thị quảng cáo"
+        },
+        {
+          "key": "C",
+          "text": "Tăng tốc tải app"
+        },
+        {
+          "key": "D",
+          "text": "Sao lưu danh bạ"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Dropper là thành phần đầu nhằm đưa và kích hoạt mã độc chính lên hệ thống."
+    },
+    {
+      "type": "single",
+      "text": "Quyền (permission) trong Android dùng để làm gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tăng dung lượng lưu trữ"
+        },
+        {
+          "key": "B",
+          "text": "Kiểm soát ứng dụng truy cập tài nguyên/dữ liệu nhạy cảm như camera, vị trí"
+        },
+        {
+          "key": "C",
+          "text": "Đổi hình nền"
+        },
+        {
+          "key": "D",
+          "text": "Tăng tốc CPU"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Permission quản lý quyền truy cập của ứng dụng tới tài nguyên/dữ liệu được bảo vệ."
+    },
+    {
+      "type": "single",
+      "text": "Nhóm quyền nào sau đây được Android xem là 'dangerous' (nguy hiểm)?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Truy cập Internet"
+        },
+        {
+          "key": "B",
+          "text": "Truy cập vị trí, danh bạ, camera, micro"
+        },
+        {
+          "key": "C",
+          "text": "Rung thiết bị"
+        },
+        {
+          "key": "D",
+          "text": "Đặt báo thức"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Quyền dangerous chạm vào dữ liệu/cảm biến nhạy cảm: vị trí, danh bạ, camera, micro, SMS..."
+    },
+    {
+      "type": "single",
+      "text": "'Over-privileged app' (ứng dụng thừa quyền) là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ứng dụng xin nhiều quyền hơn mức cần thiết cho chức năng của nó"
+        },
+        {
+          "key": "B",
+          "text": "Ứng dụng không xin quyền nào"
+        },
+        {
+          "key": "C",
+          "text": "Ứng dụng trả phí"
+        },
+        {
+          "key": "D",
+          "text": "Ứng dụng hệ thống"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "App thừa quyền vi phạm least privilege, tăng rủi ro nếu bị xâm phạm hoặc rò rỉ dữ liệu."
+    },
+    {
+      "type": "single",
+      "text": "Tại sao nên rà soát quyền trước khi cài một ứng dụng?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Để app chạy nhanh hơn"
+        },
+        {
+          "key": "B",
+          "text": "Để tiết kiệm pin"
+        },
+        {
+          "key": "C",
+          "text": "Để phát hiện quyền bất thường không phù hợp với chức năng (dấu hiệu rủi ro)"
+        },
+        {
+          "key": "D",
+          "text": "Để tải nhanh hơn"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Một app đèn pin xin quyền đọc SMS/danh bạ là dấu hiệu đáng ngờ — cần rà soát quyền."
+    },
+    {
+      "type": "single",
+      "text": "'Permission escalation' (leo thang quyền) nghĩa là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Giảm quyền của ứng dụng"
+        },
+        {
+          "key": "B",
+          "text": "Tắt mọi quyền"
+        },
+        {
+          "key": "C",
+          "text": "Cấp quyền cho người dùng khác"
+        },
+        {
+          "key": "D",
+          "text": "Ứng dụng/kẻ tấn công đạt được quyền cao hơn mức được cấp"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Privilege escalation lợi dụng lỗ hổng để chiếm quyền cao hơn (vd: lên root/system)."
+    },
+    {
+      "type": "single",
+      "text": "Trên Android, thành phần nào khai báo quyền mà ứng dụng yêu cầu?",
+      "options": [
+        {
+          "key": "A",
+          "text": "build.gradle"
+        },
+        {
+          "key": "B",
+          "text": "strings.xml"
+        },
+        {
+          "key": "C",
+          "text": "Info.plist"
+        },
+        {
+          "key": "D",
+          "text": "AndroidManifest.xml"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Quyền được khai báo bằng thẻ <uses-permission> trong AndroidManifest.xml."
+    },
+    {
+      "type": "single",
+      "text": "Quyền 'background location' nên được xử lý thế nào theo nguyên tắc bảo mật?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cấp mặc định cho mọi app"
+        },
+        {
+          "key": "B",
+          "text": "Chỉ cấp khi thật sự cần và minh bạch với người dùng"
+        },
+        {
+          "key": "C",
+          "text": "Không bao giờ cấp"
+        },
+        {
+          "key": "D",
+          "text": "Cấp tự động khi cài"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Vị trí nền rất nhạy cảm về quyền riêng tư; chỉ cấp khi cần và phải minh bạch."
+    },
+    {
+      "type": "single",
+      "text": "Sự khác biệt cơ bản giữa 'authentication' và 'authorization' là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Chúng giống hệt nhau"
+        },
+        {
+          "key": "B",
+          "text": "Authorization xác minh danh tính; authentication cấp quyền"
+        },
+        {
+          "key": "C",
+          "text": "Authentication xác minh danh tính; authorization xác định quyền được làm gì"
+        },
+        {
+          "key": "D",
+          "text": "Cả hai đều là mã hóa"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Xác thực = bạn là ai; Ủy quyền = bạn được phép làm gì sau khi đã xác thực."
+    },
+    {
+      "type": "single",
+      "text": "Xác thực đa yếu tố (MFA) kết hợp các yếu tố nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Điều bạn biết, điều bạn có, điều bạn là"
+        },
+        {
+          "key": "B",
+          "text": "Tên, tuổi, địa chỉ"
+        },
+        {
+          "key": "C",
+          "text": "CPU, RAM, ổ cứng"
+        },
+        {
+          "key": "D",
+          "text": "Wi-Fi, 4G, Bluetooth"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "MFA kết hợp ≥2 yếu tố khác loại: knowledge (mật khẩu), possession (OTP/khóa), inherence (sinh trắc)."
+    },
+    {
+      "type": "single",
+      "text": "Sinh trắc học (vân tay, khuôn mặt) thuộc yếu tố xác thực nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Điều bạn biết"
+        },
+        {
+          "key": "B",
+          "text": "Điều bạn có"
+        },
+        {
+          "key": "C",
+          "text": "Điều bạn là (inherence)"
+        },
+        {
+          "key": "D",
+          "text": "Điều bạn ở đâu"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Sinh trắc là yếu tố 'inherence' — đặc điểm sinh học của chính người dùng."
+    },
+    {
+      "type": "single",
+      "text": "OTP (One-Time Password) có đặc điểm gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Chỉ dùng một lần và/hoặc hết hạn sau thời gian ngắn"
+        },
+        {
+          "key": "B",
+          "text": "Dùng được nhiều lần"
+        },
+        {
+          "key": "C",
+          "text": "Không bao giờ hết hạn"
+        },
+        {
+          "key": "D",
+          "text": "Là mật khẩu cố định"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "OTP dùng một lần/hết hạn nhanh, giảm rủi ro nếu bị lộ."
+    },
+    {
+      "type": "single",
+      "text": "Token-based authentication (vd JWT) hoạt động ra sao trên ứng dụng di động?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Gửi lại mật khẩu mỗi request"
+        },
+        {
+          "key": "B",
+          "text": "Sau khi đăng nhập, client nhận token và gửi kèm mỗi request thay cho mật khẩu"
+        },
+        {
+          "key": "C",
+          "text": "Không cần đăng nhập"
+        },
+        {
+          "key": "D",
+          "text": "Lưu mật khẩu trên server dạng rõ"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Token (vd JWT) chứng minh phiên đăng nhập; client gửi token thay vì mật khẩu mỗi lần."
+    },
+    {
+      "type": "single",
+      "text": "Token xác thực trên thiết bị di động nên được lưu ở đâu là an toàn nhất?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Trong log ứng dụng"
+        },
+        {
+          "key": "B",
+          "text": "Trong tệp văn bản công khai"
+        },
+        {
+          "key": "C",
+          "text": "Trong URL"
+        },
+        {
+          "key": "D",
+          "text": "Trong vùng lưu khóa an toàn: Keychain (iOS) / Keystore (Android)"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Nên dùng Keychain/Keystore được hỗ trợ phần cứng thay vì lưu token ở nơi dễ đọc."
+    },
+    {
+      "type": "single",
+      "text": "Tấn công 'brute force' vào mật khẩu nghĩa là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Đoán đúng ngay lần đầu"
+        },
+        {
+          "key": "B",
+          "text": "Thử lần lượt nhiều tổ hợp cho đến khi đúng"
+        },
+        {
+          "key": "C",
+          "text": "Mã hóa mật khẩu"
+        },
+        {
+          "key": "D",
+          "text": "Đổi mật khẩu định kỳ"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Brute force thử cạn kiệt tổ hợp; phòng chống bằng rate-limit, khóa tài khoản, mật khẩu mạnh."
+    },
+    {
+      "type": "single",
+      "text": "Biện pháp nào giúp chống brute force vào màn hình khóa thiết bị?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cho phép thử không giới hạn"
+        },
+        {
+          "key": "B",
+          "text": "Dùng PIN 2 chữ số"
+        },
+        {
+          "key": "C",
+          "text": "Tắt khóa màn hình"
+        },
+        {
+          "key": "D",
+          "text": "Giới hạn số lần thử và tăng thời gian chờ / xóa dữ liệu sau nhiều lần sai"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Giới hạn số lần, trễ lũy tiến, hoặc wipe sau N lần sai làm brute force bất khả thi."
+    },
+    {
+      "type": "single",
+      "text": "Vì sao không nên dùng sinh trắc học làm yếu tố duy nhất cho tài khoản rất quan trọng?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Vì sinh trắc luôn sai"
+        },
+        {
+          "key": "B",
+          "text": "Vì tốn pin"
+        },
+        {
+          "key": "C",
+          "text": "Vì không thể thay đổi nếu bị lộ và có thể bị giả mạo"
+        },
+        {
+          "key": "D",
+          "text": "Vì khó dùng"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Đặc trưng sinh trắc không đổi được; nên kết hợp thêm yếu tố khác (MFA)."
+    },
+    {
+      "type": "single",
+      "text": "Mã hóa (encryption) bảo vệ dữ liệu bằng cách nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Biến đổi dữ liệu thành dạng không đọc được nếu không có khóa"
+        },
+        {
+          "key": "B",
+          "text": "Nén dữ liệu nhỏ lại"
+        },
+        {
+          "key": "C",
+          "text": "Xóa dữ liệu"
+        },
+        {
+          "key": "D",
+          "text": "Sao lưu dữ liệu"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Mã hóa chuyển plaintext thành ciphertext; chỉ ai có khóa mới giải mã được."
+    },
+    {
+      "type": "single",
+      "text": "Đặc điểm của mã hóa đối xứng (symmetric) là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Dùng hai khóa khác nhau"
+        },
+        {
+          "key": "B",
+          "text": "Không dùng khóa"
+        },
+        {
+          "key": "C",
+          "text": "Chỉ mã hóa, không giải mã được"
+        },
+        {
+          "key": "D",
+          "text": "Dùng cùng một khóa để mã hóa và giải mã"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Mã hóa đối xứng (vd AES) dùng chung một khóa bí mật cho cả hai chiều."
+    },
+    {
+      "type": "single",
+      "text": "Thuật toán nào sau đây là mã hóa đối xứng phổ biến?",
+      "options": [
+        {
+          "key": "A",
+          "text": "AES"
+        },
+        {
+          "key": "B",
+          "text": "RSA"
+        },
+        {
+          "key": "C",
+          "text": "ECC"
+        },
+        {
+          "key": "D",
+          "text": "Diffie-Hellman"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "AES là chuẩn mã hóa đối xứng; RSA/ECC/DH thuộc nhóm bất đối xứng/trao đổi khóa."
+    },
+    {
+      "type": "single",
+      "text": "Mã hóa bất đối xứng (public-key) sử dụng cặp khóa nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Hai khóa giống nhau"
+        },
+        {
+          "key": "B",
+          "text": "Khóa công khai và khóa riêng tư"
+        },
+        {
+          "key": "C",
+          "text": "Một khóa duy nhất"
+        },
+        {
+          "key": "D",
+          "text": "Không có khóa"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Public key để mã hóa/xác minh, private key để giải mã/ký — phải giữ bí mật."
+    },
+    {
+      "type": "single",
+      "text": "Hàm băm (hash) như SHA-256 có tính chất quan trọng nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Có thể đảo ngược dễ dàng về dữ liệu gốc"
+        },
+        {
+          "key": "B",
+          "text": "Luôn tạo cùng độ dài bằng dữ liệu đầu vào"
+        },
+        {
+          "key": "C",
+          "text": "Một chiều, đầu ra cố định, khó tìm va chạm"
+        },
+        {
+          "key": "D",
+          "text": "Dùng để giải mã"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Hash là một chiều, độ dài cố định, kháng va chạm; không phải mã hóa (không giải ngược)."
+    },
+    {
+      "type": "single",
+      "text": "Giao thức nào bảo vệ dữ liệu truyền giữa ứng dụng di động và máy chủ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "HTTP"
+        },
+        {
+          "key": "B",
+          "text": "FTP"
+        },
+        {
+          "key": "C",
+          "text": "TLS/HTTPS"
+        },
+        {
+          "key": "D",
+          "text": "Telnet"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "TLS (qua HTTPS) mã hóa và bảo vệ tính toàn vẹn dữ liệu trên đường truyền."
+    },
+    {
+      "type": "single",
+      "text": "'Certificate pinning' trong ứng dụng di động nhằm mục đích gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tăng tốc kết nối"
+        },
+        {
+          "key": "B",
+          "text": "Ràng buộc ứng dụng chỉ tin chứng chỉ/khóa cụ thể, chống MitM bằng cert giả"
+        },
+        {
+          "key": "C",
+          "text": "Mã hóa ổ đĩa"
+        },
+        {
+          "key": "D",
+          "text": "Lưu mật khẩu"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Pinning chỉ chấp nhận chứng chỉ/khóa công khai đã ghim, ngăn cert giả mạo trong MitM."
+    },
+    {
+      "type": "single",
+      "text": "'Full-disk encryption' / 'file-based encryption' trên điện thoại bảo vệ điều gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Dữ liệu đang truyền trên mạng"
+        },
+        {
+          "key": "B",
+          "text": "Tốc độ CPU"
+        },
+        {
+          "key": "C",
+          "text": "Tuổi thọ pin"
+        },
+        {
+          "key": "D",
+          "text": "Dữ liệu lưu trên thiết bị khi thiết bị bị mất/lấy cắp (at rest)"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Mã hóa lưu trữ bảo vệ dữ liệu 'at rest' khi thiết bị rơi vào tay người khác."
+    },
+    {
+      "type": "single",
+      "text": "'End-to-end encryption' (E2EE) trong ứng dụng nhắn tin nghĩa là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Chỉ người gửi và người nhận giải mã được; máy chủ trung gian không đọc được"
+        },
+        {
+          "key": "B",
+          "text": "Máy chủ có thể đọc mọi tin nhắn"
+        },
+        {
+          "key": "C",
+          "text": "Tin nhắn không mã hóa"
+        },
+        {
+          "key": "D",
+          "text": "Chỉ mã hóa ảnh"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "E2EE mã hóa tại đầu gửi và chỉ giải mã tại đầu nhận; trung gian không có khóa."
+    },
+    {
+      "type": "single",
+      "text": "Vì sao không nên 'nhúng cứng' (hardcode) khóa bí mật/API key trong mã ứng dụng di động?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Vì làm app nặng hơn"
+        },
+        {
+          "key": "B",
+          "text": "Vì làm chậm khởi động"
+        },
+        {
+          "key": "C",
+          "text": "Vì tốn pin"
+        },
+        {
+          "key": "D",
+          "text": "Vì có thể bị trích xuất qua reverse engineering"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Khóa nhúng trong APK/IPA dễ bị dịch ngược và trích xuất; nên dùng cơ chế khóa an toàn/máy chủ."
+    },
+    {
+      "type": "single",
+      "text": "Kiến trúc Android dựa trên nhân (kernel) nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Windows NT"
+        },
+        {
+          "key": "B",
+          "text": "Linux"
+        },
+        {
+          "key": "C",
+          "text": "Darwin/XNU"
+        },
+        {
+          "key": "D",
+          "text": "FreeBSD"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Android xây trên nhân Linux, tận dụng mô hình quyền và cô lập tiến trình của Linux."
+    },
+    {
+      "type": "single",
+      "text": "Trên Android, mỗi ứng dụng mặc định chạy với điều gì để cô lập?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Một UID Linux riêng và sandbox riêng"
+        },
+        {
+          "key": "B",
+          "text": "Cùng một UID dùng chung"
+        },
+        {
+          "key": "C",
+          "text": "Quyền root"
+        },
+        {
+          "key": "D",
+          "text": "Không có cô lập"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Mỗi app Android được gán UID riêng, chạy trong sandbox tách biệt dữ liệu/tiến trình."
+    },
+    {
+      "type": "single",
+      "text": "'Rooting' thiết bị Android gây ra rủi ro bảo mật gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tăng bảo mật tuyệt đối"
+        },
+        {
+          "key": "B",
+          "text": "Tự động vá lỗi"
+        },
+        {
+          "key": "C",
+          "text": "Vô hiệu nhiều cơ chế bảo vệ, mở rộng bề mặt tấn công"
+        },
+        {
+          "key": "D",
+          "text": "Không ảnh hưởng gì"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Root phá sandbox/SELinux, app độc có thể chiếm quyền cao; cũng mất cập nhật, mất bảo hành."
+    },
+    {
+      "type": "single",
+      "text": "Trên Android, 'Google Play Protect' có vai trò gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tăng tốc tải app"
+        },
+        {
+          "key": "B",
+          "text": "Mở khóa bootloader"
+        },
+        {
+          "key": "C",
+          "text": "Quét và cảnh báo ứng dụng có hại trên thiết bị"
+        },
+        {
+          "key": "D",
+          "text": "Tăng dung lượng"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Play Protect quét ứng dụng (cả ngoài store) để phát hiện/cảnh báo phần mềm độc hại."
+    },
+    {
+      "type": "single",
+      "text": "Các ứng dụng Android giao tiếp với nhau qua cơ chế nào và cần lưu ý bảo mật gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Email"
+        },
+        {
+          "key": "B",
+          "text": "Bluetooth bắt buộc"
+        },
+        {
+          "key": "C",
+          "text": "Không thể giao tiếp"
+        },
+        {
+          "key": "D",
+          "text": "Intent — cần bảo vệ exported component và kiểm tra dữ liệu nhận"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Intent/IPC: component exported không bảo vệ dễ bị app khác gọi; cần kiểm soát quyền và validate input."
+    },
+    {
+      "type": "single",
+      "text": "Việc cài ứng dụng từ ngoài Google Play (sideloading) được kiểm soát bởi cài đặt nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "'Cài đặt ứng dụng không rõ nguồn gốc' (unknown sources)"
+        },
+        {
+          "key": "B",
+          "text": "Chế độ máy bay"
+        },
+        {
+          "key": "C",
+          "text": "Tiết kiệm pin"
+        },
+        {
+          "key": "D",
+          "text": "Xoay màn hình"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Sideloading yêu cầu bật quyền cài từ nguồn không xác định — nên hạn chế vì rủi ro cao."
+    },
+    {
+      "type": "single",
+      "text": "Định dạng gói cài đặt ứng dụng Android là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": ".ipa"
+        },
+        {
+          "key": "B",
+          "text": ".apk (hoặc .aab)"
+        },
+        {
+          "key": "C",
+          "text": ".exe"
+        },
+        {
+          "key": "D",
+          "text": ".dmg"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Android dùng APK (và Android App Bundle .aab); .ipa là của iOS."
+    },
+    {
+      "type": "single",
+      "text": "iOS kiểm soát phân phối ứng dụng chủ yếu qua cơ chế nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cho phép cài từ mọi website"
+        },
+        {
+          "key": "B",
+          "text": "Không kiểm soát"
+        },
+        {
+          "key": "C",
+          "text": "App Store với quy trình kiểm duyệt và ký mã (code signing)"
+        },
+        {
+          "key": "D",
+          "text": "Chỉ qua email"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "iOS dùng mô hình 'walled garden': App Store kiểm duyệt + code signing của Apple."
+    },
+    {
+      "type": "single",
+      "text": "'Jailbreak' trên iOS tương tự rooting và gây ra rủi ro gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tăng bảo mật"
+        },
+        {
+          "key": "B",
+          "text": "Tự động cập nhật iOS"
+        },
+        {
+          "key": "C",
+          "text": "Không có rủi ro"
+        },
+        {
+          "key": "D",
+          "text": "Phá vỡ sandbox và code signing, cho phép cài app chưa kiểm duyệt, tăng rủi ro"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Jailbreak vô hiệu các bảo vệ nền tảng, mở cửa cho mã độc và mất cập nhật bảo mật."
+    },
+    {
+      "type": "single",
+      "text": "Thành phần phần cứng bảo mật chuyên dụng trên thiết bị Apple được gọi là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "TPM 2.0"
+        },
+        {
+          "key": "B",
+          "text": "Secure Enclave"
+        },
+        {
+          "key": "C",
+          "text": "SELinux"
+        },
+        {
+          "key": "D",
+          "text": "BitLocker"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Secure Enclave là bộ đồng xử lý bảo mật của Apple để xử lý khóa và dữ liệu sinh trắc."
+    },
+    {
+      "type": "single",
+      "text": "Cơ chế ký mã (code signing) trên iOS bảo đảm điều gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Chỉ mã đã được ký bởi nhà phát triển hợp lệ/Apple mới được thực thi"
+        },
+        {
+          "key": "B",
+          "text": "Ứng dụng chạy nhanh hơn"
+        },
+        {
+          "key": "C",
+          "text": "Tăng dung lượng app"
+        },
+        {
+          "key": "D",
+          "text": "Đổi biểu tượng app"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Code signing bảo đảm tính toàn vẹn và nguồn gốc mã; ngăn chạy mã bị sửa đổi/không tin cậy."
+    },
+    {
+      "type": "single",
+      "text": "Tính năng 'App Transport Security' (ATS) của iOS làm gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tắt mạng di động"
+        },
+        {
+          "key": "B",
+          "text": "Bắt buộc kết nối mạng dùng HTTPS/TLS an toàn theo mặc định"
+        },
+        {
+          "key": "C",
+          "text": "Tăng tốc tải app"
+        },
+        {
+          "key": "D",
+          "text": "Sao lưu iCloud"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "ATS yêu cầu app dùng kết nối an toàn (HTTPS/TLS) mặc định, chặn cleartext."
+    },
+    {
+      "type": "single",
+      "text": "Thế hệ mạng di động nào lần đầu mã hóa và tăng cường bảo mật đáng kể so với analog?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1G"
+        },
+        {
+          "key": "B",
+          "text": "Không thế hệ nào"
+        },
+        {
+          "key": "C",
+          "text": "2G (GSM)"
+        },
+        {
+          "key": "D",
+          "text": "0G"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "1G analog không mã hóa; 2G/GSM bắt đầu mã hóa số (dù A5/1 sau này bị yếu)."
+    },
+    {
+      "type": "single",
+      "text": "Thiết bị giả trạm thu phát sóng để bắt thông tin di động (IMSI catcher) thường được gọi là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Firewall"
+        },
+        {
+          "key": "B",
+          "text": "Honeypot"
+        },
+        {
+          "key": "C",
+          "text": "Proxy"
+        },
+        {
+          "key": "D",
+          "text": "Stingray (IMSI catcher)"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "IMSI catcher (Stingray) giả làm trạm gốc để theo dõi/định vị/nghe lén thiết bị."
+    },
+    {
+      "type": "single",
+      "text": "Lỗ hổng giao thức báo hiệu 'SS7' có thể bị khai thác để làm gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Theo dõi vị trí, nghe lén cuộc gọi/SMS, chặn OTP"
+        },
+        {
+          "key": "B",
+          "text": "Tăng tốc mạng"
+        },
+        {
+          "key": "C",
+          "text": "Sạc pin nhanh"
+        },
+        {
+          "key": "D",
+          "text": "Cài đặt ứng dụng"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Lỗ hổng SS7 cho phép định vị, chặn SMS/cuộc gọi và cướp OTP của thuê bao."
+    },
+    {
+      "type": "single",
+      "text": "VPN trên thiết bị di động giúp ích gì cho bảo mật?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tạo đường hầm mã hóa, bảo vệ lưu lượng đặc biệt trên Wi-Fi công cộng"
+        },
+        {
+          "key": "B",
+          "text": "Tăng dung lượng pin"
+        },
+        {
+          "key": "C",
+          "text": "Tăng tốc CPU"
+        },
+        {
+          "key": "D",
+          "text": "Xóa mã độc"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "VPN mã hóa lưu lượng qua đường hầm, giảm rủi ro nghe lén trên mạng không tin cậy."
+    },
+    {
+      "type": "single",
+      "text": "NFC trên điện thoại có rủi ro bảo mật nào cần lưu ý?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Hoàn toàn không có rủi ro"
+        },
+        {
+          "key": "B",
+          "text": "Chỉ làm nóng máy"
+        },
+        {
+          "key": "C",
+          "text": "Nghe lén/relay khi ở khoảng cách gần, hoặc thẻ/tag NFC độc hại"
+        },
+        {
+          "key": "D",
+          "text": "Làm chậm Wi-Fi"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "NFC tầm ngắn nhưng vẫn có thể bị eavesdrop/relay; tag độc có thể kích hoạt hành động."
+    },
+    {
+      "type": "single",
+      "text": "Biện pháp nào hiệu quả nhất để giảm rủi ro lỗ hổng đã biết trên thiết bị di động?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tắt cập nhật"
+        },
+        {
+          "key": "B",
+          "text": "Cập nhật hệ điều hành và ứng dụng kịp thời (patch)"
+        },
+        {
+          "key": "C",
+          "text": "Cài thêm nhiều app"
+        },
+        {
+          "key": "D",
+          "text": "Dùng Wi-Fi công cộng"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Vá lỗi kịp thời khắc phục lỗ hổng đã biết, giảm cơ hội bị khai thác."
+    },
+    {
+      "type": "single",
+      "text": "MDM (Mobile Device Management) trong doanh nghiệp dùng để làm gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tăng tốc game"
+        },
+        {
+          "key": "B",
+          "text": "Chỉnh sửa ảnh"
+        },
+        {
+          "key": "C",
+          "text": "Nghe nhạc"
+        },
+        {
+          "key": "D",
+          "text": "Quản lý, áp chính sách và bảo mật thiết bị di động từ xa"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "MDM cho phép cấu hình, áp chính sách, khóa/xóa từ xa, kiểm soát ứng dụng trên thiết bị."
+    },
+    {
+      "type": "single",
+      "text": "Tính năng 'remote wipe' (xóa từ xa) hữu ích trong trường hợp nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Khi muốn tăng dung lượng"
+        },
+        {
+          "key": "B",
+          "text": "Khi thiết bị bị mất/đánh cắp, để bảo vệ dữ liệu nhạy cảm"
+        },
+        {
+          "key": "C",
+          "text": "Khi pin yếu"
+        },
+        {
+          "key": "D",
+          "text": "Khi cập nhật app"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Remote wipe xóa dữ liệu từ xa khi mất thiết bị, ngăn rò rỉ thông tin."
+    },
+    {
+      "type": "single",
+      "text": "Một app ngân hàng nên áp dụng biện pháp nào để chống chạy trên thiết bị đã root/jailbreak?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Phát hiện root/jailbreak và hạn chế chức năng hoặc cảnh báo"
+        },
+        {
+          "key": "B",
+          "text": "Bỏ qua, không kiểm tra"
+        },
+        {
+          "key": "C",
+          "text": "Yêu cầu người dùng root máy"
+        },
+        {
+          "key": "D",
+          "text": "Tắt mã hóa"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Ứng dụng nhạy cảm thường tích hợp root/jailbreak detection để giảm rủi ro môi trường không tin cậy."
+    },
+    {
+      "type": "single",
+      "text": "Khi nhận tin nhắn chứa link lạ kèm yêu cầu khẩn cấp, người dùng nên làm gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Bấm ngay để kiểm tra"
+        },
+        {
+          "key": "B",
+          "text": "Chuyển tiếp cho bạn bè"
+        },
+        {
+          "key": "C",
+          "text": "Nhập OTP vào link"
+        },
+        {
+          "key": "D",
+          "text": "Không bấm; xác minh qua kênh chính thức trước khi hành động"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Đây là dấu hiệu phishing/smishing; cần xác minh độc lập, không bấm link hay nhập thông tin."
+    },
+    {
+      "type": "single",
+      "text": "Trong mô hình kiểm thử bảo mật ứng dụng di động, 'static analysis' (SAST) là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Chỉ chạy thử ứng dụng trên thiết bị"
+        },
+        {
+          "key": "B",
+          "text": "Tấn công mạng"
+        },
+        {
+          "key": "C",
+          "text": "Phân tích mã/ứng dụng mà không chạy nó"
+        },
+        {
+          "key": "D",
+          "text": "Sao lưu mã nguồn"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "SAST kiểm tra mã nguồn/nhị phân tĩnh để tìm lỗ hổng mà không thực thi chương trình."
+    },
+    {
+      "type": "single",
+      "text": "'Dynamic analysis' (DAST) ứng dụng di động khác static ở điểm nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Không cần chạy ứng dụng"
+        },
+        {
+          "key": "B",
+          "text": "Chỉ đọc mã nguồn"
+        },
+        {
+          "key": "C",
+          "text": "Chỉ kiểm tra giao diện"
+        },
+        {
+          "key": "D",
+          "text": "Phân tích trong khi ứng dụng đang chạy (runtime)"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "DAST quan sát hành vi thực thi, lưu lượng mạng, lưu trữ... khi app đang chạy."
+    },
+    {
+      "type": "single",
+      "text": "Quá trình mô phỏng tấn công có kiểm soát để đánh giá an ninh được gọi là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tối ưu pin"
+        },
+        {
+          "key": "B",
+          "text": "Penetration testing (kiểm thử xâm nhập)"
+        },
+        {
+          "key": "C",
+          "text": "Sao lưu định kỳ"
+        },
+        {
+          "key": "D",
+          "text": "Nén ảnh"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Pentest mô phỏng tấn công thực tế (được phép) để tìm và đánh giá lỗ hổng trước kẻ xấu."
+    },
+    {
+      "type": "single",
+      "text": "Một kịch bản: nhân viên mất điện thoại công ty không khóa màn hình và chứa email nội bộ. Rủi ro lớn nhất là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Rò rỉ dữ liệu/tài khoản do người nhặt được truy cập trực tiếp"
+        },
+        {
+          "key": "B",
+          "text": "Hết pin"
+        },
+        {
+          "key": "C",
+          "text": "Màn hình bị xước"
+        },
+        {
+          "key": "D",
+          "text": "Tốn dung lượng"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Không khóa máy + dữ liệu nhạy cảm = nguy cơ truy cập/rò rỉ trực tiếp; cần khóa màn hình, MDM, remote wipe."
+    },
+    {
+      "type": "single",
+      "text": "Kịch bản: ứng dụng gửi token xác thực qua HTTP không mã hóa trên Wi-Fi quán cà phê. Tấn công nào dễ xảy ra nhất?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Brute force mật khẩu"
+        },
+        {
+          "key": "B",
+          "text": "Tấn công vật lý"
+        },
+        {
+          "key": "C",
+          "text": "Nghe lén / MitM để đánh cắp token"
+        },
+        {
+          "key": "D",
+          "text": "Hết pin"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Token truyền cleartext trên Wi-Fi công cộng dễ bị bắt gói/MitM; phải dùng TLS + pinning."
+    },
+    {
+      "type": "single",
+      "text": "Kịch bản phòng thủ: để bảo vệ đăng nhập ngân hàng tốt nhất, nên kết hợp biện pháp nào?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Chỉ mật khẩu ngắn"
+        },
+        {
+          "key": "B",
+          "text": "Mật khẩu mạnh + MFA + lưu token trong Keystore/Keychain + TLS pinning"
+        },
+        {
+          "key": "C",
+          "text": "Chỉ dùng sinh trắc và bỏ mật khẩu"
+        },
+        {
+          "key": "D",
+          "text": "Tắt cập nhật để ổn định"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Phòng thủ theo chiều sâu: kết hợp xác thực mạnh, lưu khóa an toàn và bảo vệ kênh truyền."
+    },
+    {
+      "type": "single",
+      "text": "Kịch bản: một app 'đèn pin' yêu cầu quyền đọc SMS, danh bạ và vị trị nền. Đánh giá đúng nhất là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Bình thường, nên cấp hết"
+        },
+        {
+          "key": "B",
+          "text": "Cần thiết cho đèn pin"
+        },
+        {
+          "key": "C",
+          "text": "Giúp tiết kiệm pin"
+        },
+        {
+          "key": "D",
+          "text": "Dấu hiệu thừa quyền/đáng ngờ — nên từ chối và cân nhắc gỡ cài đặt"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "Đèn pin không cần SMS/danh bạ/vị trí nền — đây là biểu hiện over-privileged, rủi ro thu thập dữ liệu."
+    },
+    {
+      "type": "single",
+      "text": "Kịch bản: doanh nghiệp muốn cho nhân viên dùng điện thoại cá nhân cho công việc (BYOD). Giải pháp tách dữ liệu công việc/cá nhân là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Dùng work profile/containerization và chính sách MDM"
+        },
+        {
+          "key": "B",
+          "text": "Tắt mã hóa"
+        },
+        {
+          "key": "C",
+          "text": "Cho toàn quyền root"
+        },
+        {
+          "key": "D",
+          "text": "Dùng chung một tài khoản"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "BYOD nên dùng work profile/container để cô lập dữ liệu doanh nghiệp, áp chính sách qua MDM."
+    },
+    {
+      "type": "single",
+      "text": "Kịch bản: cần chống reverse engineering trích khóa API trong app. Cách tiếp cận đúng đắn nhất?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Hardcode khóa và tin vào việc người dùng không xem mã"
+        },
+        {
+          "key": "B",
+          "text": "Đặt khóa trong tên file"
+        },
+        {
+          "key": "C",
+          "text": "Không nhúng khóa nhạy cảm; xác thực qua máy chủ, kết hợp obfuscation + attestation"
+        },
+        {
+          "key": "D",
+          "text": "Lưu khóa trong log"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "Không nên tin client; chuyển bí mật về phía server, dùng token ngắn hạn, obfuscation và app attestation."
+    },
+    {
+      "type": "single",
+      "text": "Kịch bản: người dùng nhận cuộc gọi tự xưng 'nhân viên ngân hàng' yêu cầu đọc mã OTP. Hành động đúng là gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Đọc OTP để xác minh"
+        },
+        {
+          "key": "B",
+          "text": "Nhắn OTP qua SMS"
+        },
+        {
+          "key": "C",
+          "text": "Tuyệt đối không cung cấp OTP cho bất kỳ ai; cúp máy và liên hệ ngân hàng chính thức"
+        },
+        {
+          "key": "D",
+          "text": "Gửi OTP qua email"
+        }
+      ],
+      "correct": [
+        "C"
+      ],
+      "explanation": "OTP là bí mật cá nhân; đây là vishing. Ngân hàng không bao giờ yêu cầu OTP — không cung cấp."
+    },
+    {
+      "type": "single",
+      "text": "Kịch bản: cần đánh giá an ninh một app trước khi phát hành. Quy trình toàn diện nhất gồm những gì?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Kết hợp SAST, DAST và penetration testing theo chuẩn (vd OWASP MASVS)"
+        },
+        {
+          "key": "B",
+          "text": "Chỉ kiểm tra giao diện"
+        },
+        {
+          "key": "C",
+          "text": "Chỉ chạy thử trên một máy"
+        },
+        {
+          "key": "D",
+          "text": "Chỉ đọc mô tả app"
+        }
+      ],
+      "correct": [
+        "A"
+      ],
+      "explanation": "Đánh giá toàn diện kết hợp phân tích tĩnh, động và pentest theo khung như OWASP MASVS/MSTG."
+    },
+    {
+      "type": "single",
+      "text": "Khung tiêu chuẩn nào của OWASP định nghĩa yêu cầu bảo mật cho ứng dụng di động?",
+      "options": [
+        {
+          "key": "A",
+          "text": "OWASP ZAP"
+        },
+        {
+          "key": "B",
+          "text": "PCI-DSS"
+        },
+        {
+          "key": "C",
+          "text": "ISO 9001"
+        },
+        {
+          "key": "D",
+          "text": "OWASP MASVS (Mobile Application Security Verification Standard)"
+        }
+      ],
+      "correct": [
+        "D"
+      ],
+      "explanation": "MASVS là chuẩn xác minh bảo mật ứng dụng di động của OWASP; đi kèm hướng dẫn kiểm thử MSTG."
+    },
+    {
+      "type": "single",
+      "text": "Trong các nguồn cài đặt sau, nguồn nào an toàn nhất cho người dùng phổ thông?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Đường link APK gửi qua tin nhắn lạ"
+        },
+        {
+          "key": "B",
+          "text": "Kho ứng dụng chính thức (Google Play / App Store)"
+        },
+        {
+          "key": "C",
+          "text": "Trang web chia sẻ ứng dụng crack"
+        },
+        {
+          "key": "D",
+          "text": "Mã QR dán ở nơi công cộng"
+        }
+      ],
+      "correct": [
+        "B"
+      ],
+      "explanation": "Kho chính thức có kiểm duyệt và ký mã; các nguồn còn lại rủi ro cao chứa mã độc."
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: examrush_postgres
+    environment:
+      POSTGRES_USER: examrush
+      POSTGRES_PASSWORD: examrush
+      POSTGRES_DB: examrush
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U examrush"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: examrush_redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: examrush_backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: examrush_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  pgdata:

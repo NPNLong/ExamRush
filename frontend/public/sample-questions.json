@@ -1,0 +1,32 @@
+{
+  "title": "Bài thi mẫu — Kiến thức tổng hợp",
+  "description": "Đây là file JSON mẫu. Hãy thay nội dung bằng câu hỏi của bạn rồi import lại.",
+  "image_url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
+  "time_limit_seconds": 600,
+  "questions": [
+    {
+      "type": "single",
+      "text": "Thủ đô của Việt Nam là thành phố nào?",
+      "options": [
+        { "key": "A", "text": "Thành phố Hồ Chí Minh" },
+        { "key": "B", "text": "Đà Nẵng" },
+        { "key": "C", "text": "Hà Nội" },
+        { "key": "D", "text": "Hải Phòng" }
+      ],
+      "correct": ["C"],
+      "explanation": "Hà Nội là thủ đô của Việt Nam."
+    },
+    {
+      "type": "multiple",
+      "text": "Những ngôn ngữ nào sau đây là ngôn ngữ lập trình?",
+      "options": [
+        { "key": "A", "text": "Python" },
+        { "key": "B", "text": "HTML" },
+        { "key": "C", "text": "JavaScript" },
+        { "key": "D", "text": "Java" }
+      ],
+      "correct": ["A", "C", "D"],
+      "explanation": "HTML là ngôn ngữ đánh dấu, không phải ngôn ngữ lập trình."
+    }
+  ]
+}

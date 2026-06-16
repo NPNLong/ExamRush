@@ -1,0 +1,294 @@
+@import "tailwindcss";
+
+/* Bật dark mode theo class trên <html> thay vì prefers-color-scheme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  /* Tông chủ đạo: xanh dương (blue) */
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  /* Màu nhấn: xanh sky/cyan để gradient hài hoà với blue */
+  --color-accent-500: #06b6d4;
+  --color-accent-600: #0891b2;
+
+  /* Transition mặc định nhanh & mượt hơn */
+  --default-transition-duration: 150ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Mọi phần tử có thể bấm đều dùng con trỏ pointer
+   (Tailwind v4 mặc định để button là cursor:default) */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+a[href],
+label:has(input:not(:disabled)),
+summary,
+select:not(:disabled),
+input[type="checkbox"]:not(:disabled),
+input[type="radio"]:not(:disabled),
+input[type="file"]:not(:disabled),
+input[type="submit"]:not(:disabled),
+.cursor-pointer {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  /* Màu nền cơ bản đặt ở body để lớp nền tech (fixed, -z) hiển thị phía sau nội dung */
+  background-color: #f1f5f9; /* slate-100 */
+}
+.dark body {
+  background-color: #020617; /* slate-950 */
+}
+
+/* ─── Nền "tech": lưới phát sáng + quầng sáng + hạt lấp lánh ─── */
+.tech-bg {
+  /* lớp phủ rất nhẹ để chữ luôn dễ đọc trên nền sáng/tối */
+  background:
+    radial-gradient(60rem 60rem at 12% -8%, color-mix(in srgb, var(--color-brand-500) 12%, transparent), transparent 60%),
+    radial-gradient(48rem 48rem at 100% 0%, color-mix(in srgb, var(--color-accent-500) 12%, transparent), transparent 55%);
+}
+
+.tech-grid {
+  position: absolute;
+  inset: -2px;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-brand-500) 16%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-brand-500) 16%, transparent) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 0%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(ellipse 85% 65% at 50% 0%, #000 0%, transparent 78%);
+  animation: tech-grid-pan 20s linear infinite;
+}
+.dark .tech-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-brand-400) 26%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-brand-400) 26%, transparent) 1px, transparent 1px);
+}
+@keyframes tech-grid-pan {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 46px 46px, 46px 46px; }
+}
+
+.tech-circuit {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(90deg, transparent 0 22%, color-mix(in srgb, var(--color-accent-500) 36%, transparent) 22% 22.6%, transparent 22.6% 100%),
+    linear-gradient(0deg, transparent 0 36%, color-mix(in srgb, var(--color-brand-400) 34%, transparent) 36% 36.6%, transparent 36.6% 100%),
+    radial-gradient(circle at 22% 36%, color-mix(in srgb, var(--color-accent-500) 80%, white) 0 2px, transparent 2.6px),
+    radial-gradient(circle at 68% 22%, color-mix(in srgb, var(--color-brand-300) 90%, white) 0 2px, transparent 2.8px),
+    radial-gradient(circle at 76% 74%, color-mix(in srgb, var(--color-accent-500) 80%, white) 0 2px, transparent 2.8px);
+  background-size: 210px 170px, 190px 230px, 210px 170px, 230px 190px, 260px 220px;
+  animation: tech-circuit-pan 28s linear infinite;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 86%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 86%, transparent);
+}
+@keyframes tech-circuit-pan {
+  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 210px 170px, -190px 230px, 210px 170px, -230px 190px, 260px -220px; }
+}
+
+.tech-beam {
+  position: absolute;
+  height: 1px;
+  width: 34rem;
+  opacity: 0.72;
+  background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.9), rgba(250, 204, 21, 0.78), transparent);
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.55);
+  animation: tech-beam-slide 8s ease-in-out infinite;
+}
+.tech-beam-1 { left: -12rem; top: 24%; transform: rotate(-12deg); }
+.tech-beam-2 { right: -14rem; top: 56%; transform: rotate(8deg); animation-delay: 2.2s; }
+.tech-beam-3 { left: 18%; bottom: 12%; transform: rotate(-4deg); animation-delay: 4.1s; }
+@keyframes tech-beam-slide {
+  0%, 100% { opacity: 0; translate: -4rem 0; }
+  45%, 62% { opacity: 0.78; }
+  100% { translate: 5rem 0; }
+}
+
+/* Vệt quét ngang kiểu HUD */
+.tech-scan {
+  position: absolute;
+  left: 0; right: 0; height: 28%;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-brand-400) 10%, transparent), transparent);
+  animation: tech-scan-move 9s ease-in-out infinite;
+}
+.dark .tech-scan { background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-brand-400) 16%, transparent), transparent); }
+@keyframes tech-scan-move {
+  0% { transform: translateY(-30%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(330%); opacity: 0; }
+}
+
+/* Hạt lấp lánh */
+.tech-spark {
+  position: absolute;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow:
+    0 0 6px 1px color-mix(in srgb, var(--color-brand-400) 90%, transparent),
+    0 0 12px 2px color-mix(in srgb, var(--color-accent-500) 60%, transparent);
+  animation-name: tech-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+@keyframes tech-twinkle {
+  0%, 100% { opacity: 0.12; transform: scale(0.5); }
+  50% { opacity: 0.95; transform: scale(1.1); }
+}
+
+/* Tôn trọng người dùng tắt hiệu ứng chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .tech-grid, .tech-scan, .tech-spark, .tech-circuit, .tech-beam { animation: none; }
+}
+
+.exam-hud-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.72)),
+    radial-gradient(circle at 10% 0%, rgba(59, 130, 246, 0.13), transparent 42%);
+  box-shadow:
+    0 20px 60px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+}
+.dark .exam-hud-panel {
+  border-color: rgba(125, 211, 252, 0.22);
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)),
+    radial-gradient(circle at 10% 0%, rgba(59, 130, 246, 0.2), transparent 42%);
+  box-shadow:
+    0 20px 60px rgba(2, 6, 23, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.exam-hud-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.08), transparent),
+    linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 10px;
+  opacity: 0.62;
+}
+.dark .exam-hud-panel::before {
+  background:
+    linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.16), transparent),
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+.exam-hud-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.exam-choice {
+  position: relative;
+  overflow: hidden;
+}
+.exam-choice::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.16), transparent 45%);
+  opacity: 0;
+  transform: translateX(-60%);
+  transition: transform 420ms ease, opacity 420ms ease;
+}
+.exam-choice:hover::after {
+  opacity: 1;
+  transform: translateX(60%);
+}
+
+.exam-effects-off .exam-hud-panel {
+  backdrop-filter: none;
+  box-shadow:
+    0 12px 32px rgba(2, 6, 23, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.exam-effects-off .exam-hud-panel::before,
+.exam-effects-off .exam-choice::after {
+  display: none;
+}
+.exam-effects-off .exam-choice,
+.exam-effects-off button {
+  transition-duration: 0ms;
+}
+
+/* Nền gradient động nhẹ nhàng */
+.bg-aurora {
+  background:
+    radial-gradient(60rem 60rem at 10% -10%, color-mix(in srgb, var(--color-brand-500) 22%, transparent), transparent 60%),
+    radial-gradient(50rem 50rem at 100% 0%, color-mix(in srgb, var(--color-accent-500) 18%, transparent), transparent 55%);
+}
+
+/* Hiệu ứng */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, rgba(125,125,125,0.12) 25%, rgba(125,125,125,0.22) 37%, rgba(125,125,125,0.12) 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-pop { animation: pop-in 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28) both; }
+
+/* Scrollbar gọn gàng */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-brand-500) 45%, transparent);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-track { background: transparent; }
+
+/* Card glass */
+.glass {
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, white 70%, transparent);
+}
+.dark .glass {
+  background: color-mix(in srgb, #0f172a 65%, transparent);
+}
