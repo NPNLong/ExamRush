@@ -55,6 +55,8 @@ export const translations = {
     'practice.confirmDeleteTitle': 'Xóa bài thi?',
     'practice.by': 'Tạo bởi',
     'practice.mine': 'Của tôi',
+    'practice.shuffle': 'Trộn thứ tự câu hỏi',
+    'practice.shuffleHint': 'Khi bật, thứ tự câu hỏi sẽ được xáo trộn mỗi lần vào thi.',
 
     'create.titleNew': 'Tạo bài thi mới',
     'create.titleEdit': 'Chỉnh sửa bài thi',
@@ -237,6 +239,8 @@ export const translations = {
     'practice.confirmDeleteTitle': 'Delete exam?',
     'practice.by': 'By',
     'practice.mine': 'Mine',
+    'practice.shuffle': 'Shuffle question order',
+    'practice.shuffleHint': 'When on, question order is shuffled each time you start an exam.',
 
     'create.titleNew': 'Create a new exam',
     'create.titleEdit': 'Edit exam',

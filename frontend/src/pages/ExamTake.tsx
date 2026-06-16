@@ -8,12 +8,23 @@ import { useDialog } from '../context/DialogContext'
 import { useEffects } from '../context/EffectsContext'
 import { Spinner } from '../components/PageWrapper'
 import TechBackground from '../components/TechBackground'
+import { SHUFFLE_KEY } from './Practice'
 import type { ExamDetailPublic } from '../lib/types'
 
 function fmtClock(sec: number) {
   const m = Math.floor(sec / 60)
   const s = sec % 60
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+}
+
+// Xáo trộn mảng (Fisher-Yates) — dùng khi bật tùy chọn "Trộn thứ tự câu hỏi"
+function shuffleArray<T>(arr: T[]): T[] {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
 }
 
 export default function ExamTake() {
@@ -39,8 +50,10 @@ export default function ExamTake() {
     examsApi
       .get(examId)
       .then((e) => {
-        setExam(e)
-        if (e.time_limit_seconds && e.time_limit_seconds > 0) setTimeLeft(e.time_limit_seconds)
+        const shouldShuffle = localStorage.getItem(SHUFFLE_KEY) === '1'
+        const data = shouldShuffle ? { ...e, questions: shuffleArray(e.questions) } : e
+        setExam(data)
+        if (data.time_limit_seconds && data.time_limit_seconds > 0) setTimeLeft(data.time_limit_seconds)
         startRef.current = Date.now()
       })
       .catch(() => navigate('/practice'))

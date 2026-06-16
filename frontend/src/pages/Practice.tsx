@@ -10,6 +10,7 @@ import {
   LuSearch,
   LuPlus,
   LuUser,
+  LuShuffle,
 } from 'react-icons/lu'
 import { examsApi } from '../lib/api'
 import { useI18n } from '../context/I18nContext'
@@ -20,6 +21,7 @@ import PageWrapper, { Spinner } from '../components/PageWrapper'
 import Pagination from '../components/Pagination'
 
 const PER_PAGE = 9
+export const SHUFFLE_KEY = 'examrush_shuffle'
 
 export default function Practice() {
   const { t } = useI18n()
@@ -31,6 +33,11 @@ export default function Practice() {
   const [query, setQuery] = useState('')
   const [page, setPage] = useState(1)
   const [deleting, setDeleting] = useState<number | null>(null)
+  const [shuffle, setShuffle] = useState(() => localStorage.getItem(SHUFFLE_KEY) === '1')
+
+  useEffect(() => {
+    localStorage.setItem(SHUFFLE_KEY, shuffle ? '1' : '0')
+  }, [shuffle])
 
   const load = () => {
     setLoading(true)
@@ -93,14 +100,43 @@ export default function Practice() {
         </Link>
       </div>
 
-      <div className="relative mt-6 max-w-md">
-        <LuSearch className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={t('practice.search')}
-          className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-11 pr-4 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-900"
-        />
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative w-full max-w-md">
+          <LuSearch className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={t('practice.search')}
+            className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-11 pr-4 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-900"
+          />
+        </div>
+
+        <button
+          type="button"
+          role="switch"
+          aria-checked={shuffle}
+          onClick={() => setShuffle((s) => !s)}
+          title={t('practice.shuffleHint')}
+          className={`inline-flex shrink-0 items-center gap-2.5 rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition-colors ${
+            shuffle
+              ? 'border-brand-300 bg-brand-50 text-brand-700 dark:border-brand-500/40 dark:bg-brand-500/10 dark:text-brand-300'
+              : 'border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800'
+          }`}
+        >
+          <LuShuffle className="h-4 w-4" />
+          {t('practice.shuffle')}
+          <span
+            className={`relative h-5 w-9 rounded-full transition-colors ${
+              shuffle ? 'bg-gradient-to-r from-brand-500 to-accent-500' : 'bg-slate-300 dark:bg-slate-600'
+            }`}
+          >
+            <span
+              className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${
+                shuffle ? 'left-[1.125rem]' : 'left-0.5'
+              }`}
+            />
+          </span>
+        </button>
       </div>
 
       {loading ? (
