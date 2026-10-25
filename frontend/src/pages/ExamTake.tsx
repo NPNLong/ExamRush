@@ -1,14 +1,27 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { LuClock, LuChevronLeft, LuChevronRight, LuCheck, LuX, LuSend, LuFlag, LuSparkles } from 'react-icons/lu'
+import {
+  LuClock,
+  LuChevronLeft,
+  LuChevronRight,
+  LuCheck,
+  LuX,
+  LuSend,
+  LuFlag,
+  LuSparkles,
+  LuEye,
+  LuEyeOff,
+  LuLightbulb,
+  LuInfo,
+} from 'react-icons/lu'
 import { examsApi } from '../lib/api'
 import { useI18n } from '../context/I18nContext'
 import { useDialog } from '../context/DialogContext'
 import { useEffects } from '../context/EffectsContext'
 import { Spinner } from '../components/PageWrapper'
 import TechBackground from '../components/TechBackground'
-import { SHUFFLE_KEY } from './Practice'
+import { SHUFFLE_KEY, INSTANT_FEEDBACK_KEY } from './Practice'
 import type { ExamDetailPublic } from '../lib/types'
 
 function fmtClock(sec: number) {
@@ -42,6 +55,17 @@ export default function ExamTake() {
   const [flagged, setFlagged] = useState<Set<number>>(new Set())
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [instantFeedback, setInstantFeedback] = useState(
+    () => localStorage.getItem(INSTANT_FEEDBACK_KEY) === '1',
+  )
+
+  const toggleInstantFeedback = () => {
+    setInstantFeedback((prev) => {
+      const next = !prev
+      localStorage.setItem(INSTANT_FEEDBACK_KEY, next ? '1' : '0')
+      return next
+    })
+  }
 
   const startRef = useRef<number>(Date.now())
   const submittedRef = useRef(false)
@@ -159,6 +183,31 @@ export default function ExamTake() {
           <div className="flex items-center gap-2">
             <button
               type="button"
+              onClick={toggleInstantFeedback}
+              aria-pressed={instantFeedback}
+              title={instantFeedback ? t('take.instantOff') : t('take.instantOn')}
+              className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-bold transition-all ${
+                instantFeedback
+                  ? 'border-emerald-300/60 bg-emerald-100 text-emerald-800 shadow-lg shadow-emerald-500/15 dark:border-emerald-400/35 dark:bg-emerald-400/15 dark:text-emerald-300'
+                  : 'border-slate-300 bg-white/65 text-slate-500 hover:bg-slate-100 hover:text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-cyan-100/[0.65] dark:hover:bg-cyan-300/10 dark:hover:text-cyan-100'
+              }`}
+            >
+              {instantFeedback ? (
+                <LuEye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+              ) : (
+                <LuEyeOff className="h-4 w-4" />
+              )}
+              <span className="hidden sm:inline">{t('take.instantFeedback')}</span>
+              <span
+                className={`inline-block h-2 w-2 rounded-full ${
+                  instantFeedback
+                    ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]'
+                    : 'bg-slate-400 dark:bg-slate-600'
+                }`}
+              />
+            </button>
+            <button
+              type="button"
               onClick={toggleEffects}
               aria-pressed={effectsEnabled}
               title={effectsEnabled ? t('take.effectsOff') : t('take.effectsOn')}
@@ -238,33 +287,164 @@ export default function ExamTake() {
 
               <div className="mt-6 space-y-3">
                 {q.options.map((o) => {
-                  const selected = (answers[q.id] || []).includes(o.key)
+                  const selectedKeys = answers[q.id] || []
+                  const isSelected = selectedKeys.includes(o.key)
+                  const hasAnswered = selectedKeys.length > 0
+                  const correctKeys = q.correct || []
+                  const isCorrectOption = correctKeys.includes(o.key)
+
+                  const showInstant = instantFeedback && hasAnswered
+
+                  let containerStyle = ''
+                  let badgeStyle = ''
+                  let badgeContent = <>{isSelected ? <LuCheck className="h-5 w-5" /> : o.key}</>
+
+                  if (showInstant) {
+                    if (isCorrectOption) {
+                      containerStyle =
+                        'border-emerald-500/80 bg-emerald-500/[0.14] shadow-[0_0_24px_rgba(16,185,129,0.22)] dark:border-emerald-400 dark:bg-emerald-400/15'
+                      badgeStyle =
+                        'border-emerald-400 bg-emerald-500 text-white shadow-[0_0_16px_rgba(16,185,129,0.5)]'
+                      badgeContent = <LuCheck className="h-5 w-5 stroke-[2.5]" />
+                    } else if (isSelected) {
+                      containerStyle =
+                        'border-rose-500/80 bg-rose-500/[0.12] shadow-[0_0_24px_rgba(244,63,94,0.22)] dark:border-rose-400 dark:bg-rose-500/15'
+                      badgeStyle =
+                        'border-rose-400 bg-rose-500 text-white shadow-[0_0_16px_rgba(244,63,94,0.5)]'
+                      badgeContent = <LuX className="h-5 w-5 stroke-[2.5]" />
+                    } else {
+                      containerStyle =
+                        'border-slate-200/70 bg-white/40 opacity-60 dark:border-white/5 dark:bg-white/[0.02] dark:opacity-45'
+                      badgeStyle =
+                        'border-slate-300 text-slate-400 dark:border-white/10 dark:text-white/40'
+                      badgeContent = <>{o.key}</>
+                    }
+                  } else {
+                    if (isSelected) {
+                      containerStyle =
+                        'border-cyan-300/70 bg-cyan-300/[0.14] shadow-[0_0_28px_rgba(34,211,238,0.2)]'
+                      badgeStyle =
+                        'border-cyan-200 bg-cyan-300 text-slate-950 shadow-[0_0_18px_rgba(34,211,238,0.5)]'
+                    } else {
+                      containerStyle =
+                        'border-slate-200 bg-white/75 hover:border-brand-300 hover:bg-brand-50/60 dark:border-white/10 dark:bg-white/[0.06] dark:hover:border-cyan-300/40 dark:hover:bg-cyan-300/10'
+                      badgeStyle =
+                        'border-slate-300 text-slate-600 dark:border-cyan-200/25 dark:text-cyan-100/75'
+                    }
+                  }
+
                   return (
                     <button
                       key={o.key}
                       onClick={() => toggle(q, o.key)}
-                      className={`exam-choice flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition-all ${
-                        selected
-                          ? 'border-cyan-300/70 bg-cyan-300/[0.14] shadow-[0_0_28px_rgba(34,211,238,0.2)]'
-                          : 'border-slate-200 bg-white/75 hover:border-brand-300 hover:bg-brand-50/60 dark:border-white/10 dark:bg-white/[0.06] dark:hover:border-cyan-300/40 dark:hover:bg-cyan-300/10'
-                      }`}
+                      className={`exam-choice flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition-all ${containerStyle}`}
                     >
                       <span
                         className={`flex h-9 w-9 shrink-0 items-center justify-center border-2 text-sm font-bold transition-colors ${
                           q.type === 'single' ? 'rounded-full' : 'rounded-lg'
-                        } ${
-                          selected
-                            ? 'border-cyan-200 bg-cyan-300 text-slate-950 shadow-[0_0_18px_rgba(34,211,238,0.5)]'
-                            : 'border-slate-300 text-slate-600 dark:border-cyan-200/25 dark:text-cyan-100/75'
-                        }`}
+                        } ${badgeStyle}`}
                       >
-                        {selected ? <LuCheck className="h-5 w-5" /> : o.key}
+                        {badgeContent}
                       </span>
-                      <span className="flex-1 text-[15px] text-slate-800 dark:text-slate-100">{o.text}</span>
+                      <span className="flex-1 text-[15px] text-slate-800 dark:text-slate-100">
+                        {o.text}
+                      </span>
+                      {showInstant && isCorrectOption && (
+                        <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-400/40 bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-800 dark:bg-emerald-400/20 dark:text-emerald-300">
+                          <LuCheck className="h-3.5 w-3.5 stroke-[2.5]" />
+                          {t('take.correctChoice')}
+                        </span>
+                      )}
+                      {showInstant && isSelected && !isCorrectOption && (
+                        <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-rose-400/40 bg-rose-100 px-2.5 py-0.5 text-xs font-bold text-rose-800 dark:bg-rose-400/20 dark:text-rose-300">
+                          <LuX className="h-3.5 w-3.5 stroke-[2.5]" />
+                          {t('take.yourChoice')}
+                        </span>
+                      )}
                     </button>
                   )
                 })}
               </div>
+
+              {/* Instant feedback card */}
+              <AnimatePresence>
+                {instantFeedback && (answers[q.id] || []).length > 0 && (() => {
+                  const selectedKeys = answers[q.id] || []
+                  const correctKeys = q.correct || []
+                  const isAllCorrect =
+                    selectedKeys.length === correctKeys.length &&
+                    selectedKeys.every((k) => correctKeys.includes(k))
+                  const isPartiallyCorrect =
+                    !isAllCorrect && selectedKeys.some((k) => correctKeys.includes(k))
+
+                  return (
+                    <motion.div
+                      initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                      transition={{ duration: 0.2 }}
+                      className={`mt-6 rounded-2xl border p-5 ${
+                        isAllCorrect
+                          ? 'border-emerald-300/70 bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent text-emerald-950 shadow-[0_0_30px_rgba(16,185,129,0.12)] dark:border-emerald-400/30 dark:text-emerald-100'
+                          : isPartiallyCorrect
+                            ? 'border-amber-300/70 bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent text-amber-950 shadow-[0_0_30px_rgba(245,158,11,0.12)] dark:border-amber-400/30 dark:text-amber-100'
+                            : 'border-rose-300/70 bg-gradient-to-br from-rose-500/10 via-rose-500/5 to-transparent text-rose-950 shadow-[0_0_30px_rgba(244,63,94,0.12)] dark:border-rose-400/30 dark:text-rose-100'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-white shadow-md ${
+                            isAllCorrect
+                              ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-emerald-500/30'
+                              : isPartiallyCorrect
+                                ? 'bg-gradient-to-br from-amber-400 to-amber-600 shadow-amber-500/30'
+                                : 'bg-gradient-to-br from-rose-400 to-rose-600 shadow-rose-500/30'
+                          }`}
+                        >
+                          {isAllCorrect ? (
+                            <LuCheck className="h-5 w-5 stroke-[2.5]" />
+                          ) : isPartiallyCorrect ? (
+                            <LuInfo className="h-5 w-5 stroke-[2.5]" />
+                          ) : (
+                            <LuX className="h-5 w-5 stroke-[2.5]" />
+                          )}
+                        </span>
+                        <div>
+                          <h3 className="font-bold sm:text-base">
+                            {isAllCorrect
+                              ? t('take.instantResultCorrect')
+                              : isPartiallyCorrect
+                                ? t('take.instantResultPartial')
+                                : t('take.instantResultIncorrect')}
+                          </h3>
+                          <p className="mt-0.5 text-xs opacity-90 sm:text-sm">
+                            {t('take.correctAnswerIs')}{' '}
+                            <strong className="font-bold underline decoration-emerald-500 decoration-2 underline-offset-2">
+                              {correctKeys.join(', ')}
+                            </strong>
+                          </p>
+                        </div>
+                      </div>
+
+                      {q.explanation ? (
+                        <div className="mt-4 rounded-xl border border-slate-200/80 bg-white/80 p-4 text-sm text-slate-800 shadow-sm dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">
+                          <div className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-cyan-300">
+                            <LuLightbulb className="h-4 w-4 text-amber-500" />
+                            {t('take.explanationTitle')}
+                          </div>
+                          <p className="whitespace-pre-line leading-relaxed text-[14px] text-slate-700 dark:text-slate-300">
+                            {q.explanation}
+                          </p>
+                        </div>
+                      ) : (
+                        <p className="mt-3 text-xs italic text-slate-500 dark:text-slate-400">
+                          {t('take.noExplanation')}
+                        </p>
+                      )}
+                    </motion.div>
+                  )
+                })()}
+              </AnimatePresence>
             </motion.div>
           </AnimatePresence>
 
@@ -302,16 +482,34 @@ export default function ExamTake() {
           <div className="exam-hud-panel rounded-2xl p-4">
             <div className="mb-3 flex items-center justify-between text-sm">
               <span className="font-semibold text-slate-900 dark:text-white">{t('take.palette')}</span>
-              <span className="rounded-full border border-brand-200 bg-brand-50 px-2 py-0.5 text-xs text-brand-700 dark:border-cyan-300/25 dark:bg-cyan-300/10 dark:text-cyan-100">
-                {answeredCount}/{exam.questions.length}
+              <span className="rounded-full border border-brand-200 bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-700 dark:border-cyan-300/25 dark:bg-cyan-300/10 dark:text-cyan-100">
+                {instantFeedback
+                  ? t('take.liveScore', {
+                      correct: exam.questions.filter((item) => {
+                        const sel = answers[item.id] || []
+                        const cor = item.correct || []
+                        return (
+                          sel.length > 0 &&
+                          sel.length === cor.length &&
+                          sel.every((k) => cor.includes(k))
+                        )
+                      }).length,
+                      total: exam.questions.length,
+                    })
+                  : `${answeredCount}/${exam.questions.length}`}
               </span>
             </div>
 
             <div className="grid max-h-[50vh] grid-cols-5 gap-2 overflow-y-auto p-1 sm:grid-cols-6 lg:grid-cols-5">
               {exam.questions.map((qq, i) => {
-                const done = (answers[qq.id] || []).length > 0
+                const sel = answers[qq.id] || []
+                const done = sel.length > 0
                 const isCurrent = i === current
                 const isFlagged = flagged.has(qq.id)
+                const cor = qq.correct || []
+                const isTileCorrect =
+                  done && sel.length === cor.length && sel.every((k) => cor.includes(k))
+
                 return (
                   <button
                     key={qq.id}
@@ -319,9 +517,13 @@ export default function ExamTake() {
                     className={`relative aspect-square rounded-lg text-sm font-semibold transition-colors ${
                       isCurrent
                         ? 'bg-gradient-to-br from-cyan-300 to-brand-500 text-slate-950 ring-2 ring-inset ring-white/70 shadow-[0_0_18px_rgba(34,211,238,0.35)]'
-                        : done
-                          ? 'border border-emerald-300/30 bg-emerald-400/[0.18] text-emerald-100'
-                          : 'border border-slate-200 bg-white/70 text-slate-500 hover:bg-brand-50 dark:border-white/10 dark:bg-white/[0.06] dark:text-cyan-100/[0.65] dark:hover:bg-cyan-300/10'
+                        : instantFeedback && done
+                          ? isTileCorrect
+                            ? 'border border-emerald-400/50 bg-emerald-400/[0.22] text-emerald-800 dark:text-emerald-200 shadow-[0_0_10px_rgba(52,211,153,0.2)]'
+                            : 'border border-rose-400/50 bg-rose-400/[0.22] text-rose-800 dark:text-rose-200 shadow-[0_0_10px_rgba(244,63,94,0.2)]'
+                          : done
+                            ? 'border border-emerald-300/30 bg-emerald-400/[0.18] text-emerald-800 dark:text-emerald-100'
+                            : 'border border-slate-200 bg-white/70 text-slate-500 hover:bg-brand-50 dark:border-white/10 dark:bg-white/[0.06] dark:text-cyan-100/[0.65] dark:hover:bg-cyan-300/10'
                     }`}
                   >
                     {i + 1}
@@ -335,9 +537,23 @@ export default function ExamTake() {
 
             {/* Chú thích + nộp bài nhanh */}
             <div className="mt-4 flex flex-col gap-2 border-t border-slate-200 pt-4 text-xs text-slate-600 dark:border-cyan-300/15 dark:text-cyan-100/70">
-              <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded bg-emerald-300/60 shadow-[0_0_10px_rgba(52,211,153,0.45)]" /> {t('take.answered')}
-              </div>
+              {instantFeedback ? (
+                <>
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.45)]" />{' '}
+                    {t('take.correctLegend')}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded bg-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.45)]" />{' '}
+                    {t('take.incorrectLegend')}
+                  </div>
+                </>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <span className="h-3 w-3 rounded bg-emerald-300/60 shadow-[0_0_10px_rgba(52,211,153,0.45)]" />{' '}
+                  {t('take.answered')}
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <span className="h-3 w-3 rounded border border-white/15 bg-white/10" /> {t('take.palette')}
               </div>

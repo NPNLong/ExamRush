@@ -36,12 +36,14 @@ class QuestionIn(BaseModel):
 
 
 class QuestionPublic(BaseModel):
-    """Dùng khi làm bài — KHÔNG lộ đáp án đúng."""
+    """Dùng khi làm bài — có đáp án và giải thích để phục vụ chế độ xem đáp án tức thì."""
     id: int
     type: QuestionType
     text: str
     options: List[Option]
     order_index: int
+    correct: List[str] = []
+    explanation: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -49,5 +51,5 @@ class QuestionPublic(BaseModel):
 
 class QuestionFull(QuestionPublic):
     """Dùng khi chủ sở hữu xem/sửa — có đáp án."""
-    correct: List[str]
-    explanation: Optional[str] = None
+    pass
+

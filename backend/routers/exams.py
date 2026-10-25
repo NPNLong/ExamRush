@@ -25,7 +25,7 @@ _LIST_CACHE = "exam:list:all"
 def _bust(exam_id: int | None = None):
     cache_delete(_LIST_CACHE)
     if exam_id:
-        cache_delete(f"exam:public:{exam_id}")
+        cache_delete(f"exam:public:{exam_id}", f"exam:public:v2:{exam_id}")
 
 
 def _build_questions(exam: Exam, payload_questions) -> None:
@@ -74,10 +74,10 @@ def list_exams(db: Session = Depends(get_db)):
     return result
 
 
-# ─── Get (public, for taking — no answers) ─────────────────────────────────────
+# ─── Get (public, for taking) ────────────────────────────────────────────────
 @router.get("/{exam_id}", response_model=ExamDetailPublic)
 def get_exam(exam_id: int, db: Session = Depends(get_db)):
-    cached = cache_get(f"exam:public:{exam_id}")
+    cached = cache_get(f"exam:public:v2:{exam_id}")
     if cached is not None:
         return cached
 
@@ -91,8 +91,9 @@ def get_exam(exam_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Không tìm thấy bài thi")
 
     data = ExamDetailPublic.model_validate(exam, from_attributes=True).model_dump()
-    cache_set(f"exam:public:{exam_id}", data)
+    cache_set(f"exam:public:v2:{exam_id}", data)
     return data
+
 
 
 # ─── Get full (owner, for editing — with answers) ──────────────────────────────

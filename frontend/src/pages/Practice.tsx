@@ -11,6 +11,7 @@ import {
   LuPlus,
   LuUser,
   LuShuffle,
+  LuEye,
 } from 'react-icons/lu'
 import { examsApi } from '../lib/api'
 import { useI18n } from '../context/I18nContext'
@@ -22,6 +23,7 @@ import Pagination from '../components/Pagination'
 
 const PER_PAGE = 9
 export const SHUFFLE_KEY = 'examrush_shuffle'
+export const INSTANT_FEEDBACK_KEY = 'examrush_instant_feedback'
 
 export default function Practice() {
   const { t } = useI18n()
@@ -34,10 +36,17 @@ export default function Practice() {
   const [page, setPage] = useState(1)
   const [deleting, setDeleting] = useState<number | null>(null)
   const [shuffle, setShuffle] = useState(() => localStorage.getItem(SHUFFLE_KEY) === '1')
+  const [instantFeedback, setInstantFeedback] = useState(
+    () => localStorage.getItem(INSTANT_FEEDBACK_KEY) === '1',
+  )
 
   useEffect(() => {
     localStorage.setItem(SHUFFLE_KEY, shuffle ? '1' : '0')
   }, [shuffle])
+
+  useEffect(() => {
+    localStorage.setItem(INSTANT_FEEDBACK_KEY, instantFeedback ? '1' : '0')
+  }, [instantFeedback])
 
   const load = () => {
     setLoading(true)
@@ -111,33 +120,63 @@ export default function Practice() {
           />
         </div>
 
-        <button
-          type="button"
-          role="switch"
-          aria-checked={shuffle}
-          onClick={() => setShuffle((s) => !s)}
-          title={t('practice.shuffleHint')}
-          className={`inline-flex shrink-0 items-center gap-2.5 rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition-colors ${
-            shuffle
-              ? 'border-brand-300 bg-brand-50 text-brand-700 dark:border-brand-500/40 dark:bg-brand-500/10 dark:text-brand-300'
-              : 'border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800'
-          }`}
-        >
-          <LuShuffle className="h-4 w-4" />
-          {t('practice.shuffle')}
-          <span
-            className={`relative h-5 w-9 rounded-full transition-colors ${
-              shuffle ? 'bg-gradient-to-r from-brand-500 to-accent-500' : 'bg-slate-300 dark:bg-slate-600'
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            role="switch"
+            aria-checked={instantFeedback}
+            onClick={() => setInstantFeedback((s) => !s)}
+            title={t('practice.instantFeedbackHint')}
+            className={`inline-flex shrink-0 items-center gap-2 rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition-colors ${
+              instantFeedback
+                ? 'border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-300'
+                : 'border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800'
             }`}
           >
+            <LuEye className="h-4 w-4" />
+            {t('practice.instantFeedback')}
             <span
-              className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${
-                shuffle ? 'left-[1.125rem]' : 'left-0.5'
+              className={`relative h-5 w-9 rounded-full transition-colors ${
+                instantFeedback ? 'bg-gradient-to-r from-emerald-500 to-teal-500' : 'bg-slate-300 dark:bg-slate-600'
               }`}
-            />
-          </span>
-        </button>
+            >
+              <span
+                className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${
+                  instantFeedback ? 'left-[1.125rem]' : 'left-0.5'
+                }`}
+              />
+            </span>
+          </button>
+
+          <button
+            type="button"
+            role="switch"
+            aria-checked={shuffle}
+            onClick={() => setShuffle((s) => !s)}
+            title={t('practice.shuffleHint')}
+            className={`inline-flex shrink-0 items-center gap-2.5 rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition-colors ${
+              shuffle
+                ? 'border-brand-300 bg-brand-50 text-brand-700 dark:border-brand-500/40 dark:bg-brand-500/10 dark:text-brand-300'
+                : 'border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800'
+            }`}
+          >
+            <LuShuffle className="h-4 w-4" />
+            {t('practice.shuffle')}
+            <span
+              className={`relative h-5 w-9 rounded-full transition-colors ${
+                shuffle ? 'bg-gradient-to-r from-brand-500 to-accent-500' : 'bg-slate-300 dark:bg-slate-600'
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${
+                  shuffle ? 'left-[1.125rem]' : 'left-0.5'
+                }`}
+              />
+            </span>
+          </button>
+        </div>
       </div>
+
 
       {loading ? (
         <Spinner className="py-24" />

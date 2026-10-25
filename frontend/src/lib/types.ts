@@ -11,12 +11,15 @@ export interface QuestionPublic {
   text: string
   options: Option[]
   order_index: number
+  correct?: string[]
+  explanation?: string | null
 }
 
 export interface QuestionFull extends QuestionPublic {
   correct: string[]
   explanation?: string | null
 }
+
 
 export interface QuestionInput {
   type: QuestionType
