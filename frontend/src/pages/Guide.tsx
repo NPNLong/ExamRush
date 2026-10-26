@@ -19,11 +19,12 @@ Chỉ tạo câu hỏi dựa trên nội dung tài liệu tôi gửi.
 
 ## 2. Số lượng và cấu trúc câu hỏi
 
-Tạo đúng **50 câu hỏi trắc nghiệm**, mỗi câu có 4 lựa chọn A, B, C, D.
+Tạo đúng **50 câu hỏi trắc nghiệm**. Có thể bao gồm cả câu hỏi **chọn 1 đáp án** và câu hỏi **chọn nhiều đáp án**. Mỗi câu có từ 2 đến tối đa 20 lựa chọn (A, B, C, D, ... T).
 
 Yêu cầu:
 
-* Chỉ có 1 đáp án đúng.
+* Với câu chọn 1 đáp án: `type` là `"single"`, chỉ có đúng 1 đáp án đúng trong mảng `correct`.
+* Với câu chọn nhiều đáp án: `type` là `"multiple"`, có thể có từ 2 đáp án đúng trở lên trong mảng `correct`.
 * Không để lộ đáp án trong câu hỏi.
 * Không dùng quá nhiều câu kiểu “Tất cả đáp án trên”.
 * Câu hỏi rõ ràng, đúng trọng tâm ôn thi.
@@ -99,7 +100,7 @@ Sau khi tạo câu hỏi, hãy xuất ra **MỘT khối JSON hợp lệ** đúng
   "questions": [
     {
       "type": "single",
-      "text": "Nội dung câu hỏi?",
+      "text": "Nội dung câu hỏi chọn 1 đáp án?",
       "options": [
         { "key": "A", "text": "Lựa chọn A" },
         { "key": "B", "text": "Lựa chọn B" },
@@ -108,6 +109,19 @@ Sau khi tạo câu hỏi, hãy xuất ra **MỘT khối JSON hợp lệ** đúng
       ],
       "correct": ["B"],
       "explanation": "Giải thích ngắn gọn vì sao đúng. [Độ khó: Trung bình | Chủ đề: Xác thực | Nguồn: slide 12]"
+    },
+    {
+      "type": "multiple",
+      "text": "Nội dung câu hỏi chọn nhiều đáp án (có thể lên tới 20 lựa chọn A-T)?",
+      "options": [
+        { "key": "A", "text": "Phương án đúng thứ nhất" },
+        { "key": "B", "text": "Phương án nhiễu B" },
+        { "key": "C", "text": "Phương án đúng thứ hai" },
+        { "key": "D", "text": "Phương án đúng thứ ba" },
+        { "key": "E", "text": "Phương án nhiễu E" }
+      ],
+      "correct": ["A", "C", "D"],
+      "explanation": "Giải thích chi tiết các đáp án đúng và vì sao các đáp án còn lại sai."
     }
   ]
 }
@@ -115,9 +129,9 @@ Sau khi tạo câu hỏi, hãy xuất ra **MỘT khối JSON hợp lệ** đúng
 
 Quy định JSON BẮT BUỘC:
 
-* \`type\` luôn là \`"single"\`.
-* Mỗi câu có đúng 4 phần tử trong \`options\` với \`key\` lần lượt là \`"A"\`, \`"B"\`, \`"C"\`, \`"D"\`.
-* \`correct\` là một mảng chứa **đúng 1** key, ví dụ \`["B"]\`.
+* \`type\` là \`"single"\` (chọn 1 đáp án) hoặc \`"multiple"\` (chọn nhiều đáp án).
+* Mỗi câu có từ 2 đến tối đa 20 lựa chọn trong \`options\` với \`key\` theo thứ tự chữ cái (\`"A"\`, \`"B"\`, \`"C"\`, \`"D"\`, ... lên tới \`"T"\`). Hoặc \`options\` có thể là mảng chuỗi gọn: \`["Lựa chọn A", "Lựa chọn B", ...]\`.
+* \`correct\` là một mảng chứa các key đáp án đúng (ví dụ: \`["B"]\` đối với \`"single"\`, hoặc \`["A", "C", "D"]\` đối với \`"multiple"\`).
 * \`explanation\` gồm phần giải thích ngắn, kèm theo độ khó / chủ đề / nguồn đặt trong ngoặc vuông ở cuối: \`[Độ khó: ... | Chủ đề: ... | Nguồn: ...]\`.
 * \`title\` đặt theo tên chương, \`time_limit_seconds\` để \`3000\` (có thể đổi, hoặc \`null\` nếu không giới hạn), \`image_url\` để chuỗi rỗng \`""\`.
 * Mảng \`questions\` phải có đúng 50 phần tử.
@@ -128,15 +142,15 @@ Quy định JSON BẮT BUỘC:
 Trước khi xuất JSON, hãy tự kiểm tra:
 
 * Có đúng 50 câu không?
-* Có đủ 4 đáp án mỗi câu không?
-* Có đúng 1 đáp án đúng không?
+* Các câu chọn 1 đáp án có type là "single" và đúng 1 đáp án đúng không?
+* Các câu chọn nhiều đáp án có type là "multiple" và các đáp án đúng có nằm trong danh sách options không?
+* Số lượng options mỗi câu từ 2 đến tối đa 20 không?
 * Có đúng phân bổ độ khó 15/25/10 không?
-* Có đúng phân bổ đáp án A=13, B=13, C=12, D=12 không?
 * Có quá 2 đáp án giống nhau liên tiếp không?
 * Có câu hỏi trùng ý không?
 * Có câu nào quá mơ hồ không?
 * Có câu nào vượt ngoài tài liệu không?
-* JSON có hợp lệ và parse được không? (đúng dấu phẩy, ngoặc, đủ 4 key A/B/C/D mỗi câu)
+* JSON có hợp lệ và parse được không? (đúng dấu phẩy, ngoặc, đúng key)
 
 Nếu phát hiện lỗi, hãy tự sửa trước khi xuất file.
 

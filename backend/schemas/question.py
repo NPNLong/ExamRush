@@ -23,6 +23,8 @@ class QuestionIn(BaseModel):
         keys = [o.key for o in self.options]
         if len(keys) < 2:
             raise ValueError("Mỗi câu hỏi cần ít nhất 2 lựa chọn")
+        if len(keys) > 20:
+            raise ValueError("Mỗi câu hỏi tối đa 20 lựa chọn")
         if len(set(keys)) != len(keys):
             raise ValueError("Các lựa chọn không được trùng key")
         if not self.correct:
@@ -32,7 +34,10 @@ class QuestionIn(BaseModel):
                 raise ValueError(f"Đáp án đúng '{c}' không nằm trong các lựa chọn")
         if self.type == QuestionType.single and len(self.correct) != 1:
             raise ValueError("Câu hỏi chọn 1 đáp án chỉ được có đúng 1 đáp án đúng")
+        if self.type == QuestionType.multiple and len(self.correct) > len(keys):
+            raise ValueError("Số đáp án đúng không được vượt quá số lựa chọn")
         return self
+
 
 
 class QuestionPublic(BaseModel):

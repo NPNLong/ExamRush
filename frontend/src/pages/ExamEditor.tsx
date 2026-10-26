@@ -29,7 +29,7 @@ interface EditQuestion {
   explanation: string
 }
 
-const LETTERS = 'ABCDEFGHIJ'.split('')
+const LETTERS = 'ABCDEFGHIJKLMNOPQRST'.split('')
 
 function emptyQuestion(): EditQuestion {
   return {
@@ -183,17 +183,64 @@ export default function ExamEditor() {
       if (!Array.isArray(raw)) throw new Error('no questions')
 
       const imported: EditQuestion[] = raw.map((q: any) => {
-        const type: QuestionType = q.type === 'multiple' ? 'multiple' : 'single'
-        const options: Option[] = (q.options || []).map((o: any, j: number) =>
-          typeof o === 'string'
-            ? { key: LETTERS[j], text: o }
-            : { key: o.key || LETTERS[j], text: o.text ?? '' },
-        )
+        // Parse options up to 20
+        let rawOptions: { key?: string; text: string }[] = []
+        if (Array.isArray(q.options)) {
+          rawOptions = q.options.map((o: any, j: number) =>
+            typeof o === 'string'
+              ? { key: LETTERS[j], text: o }
+              : {
+                  key: o.key ? String(o.key).trim().toUpperCase() : LETTERS[j],
+                  text: o.text ?? o.content ?? '',
+                },
+          )
+        } else if (q.options && typeof q.options === 'object') {
+          rawOptions = Object.entries(q.options).map(([k, v]) => ({
+            key: String(k).trim().toUpperCase(),
+            text: typeof v === 'string' ? v : String(v ?? ''),
+          }))
+        }
+
+        // Giới hạn tối đa 20 lựa chọn
+        rawOptions = rawOptions.slice(0, LETTERS.length)
+
+        const options: Option[] = rawOptions.map((o, j) => ({
+          key: o.key && LETTERS.includes(o.key) ? o.key : LETTERS[j],
+          text: o.text,
+        }))
+
+        while (options.length < 2) {
+          options.push({ key: LETTERS[options.length], text: '' })
+        }
+
+        const validKeys = new Set(options.map((o) => o.key))
+
+        let correctList: string[] = []
+        if (Array.isArray(q.correct)) {
+          correctList = q.correct
+            .map((c: any) => String(c).trim().toUpperCase())
+            .filter((c: string) => validKeys.has(c))
+        } else if (q.correct != null) {
+          correctList = String(q.correct)
+            .split(/[,;\s]+/)
+            .map((s) => s.trim().toUpperCase())
+            .filter((s) => validKeys.has(s))
+        }
+
+        let type: QuestionType = 'single'
+        if (q.type === 'multiple' || q.type === 'multi') {
+          type = 'multiple'
+        } else if (!q.type && correctList.length > 1) {
+          type = 'multiple'
+        } else if (q.type === 'single') {
+          type = correctList.length > 1 ? 'multiple' : 'single'
+        }
+
         return {
           type,
-          text: q.text || '',
-          options: options.length >= 2 ? options : [...options, { key: 'B', text: '' }],
-          correct: Array.isArray(q.correct) ? q.correct : q.correct != null ? [String(q.correct)] : [],
+          text: q.text || q.question || '',
+          options,
+          correct: correctList,
           explanation: q.explanation || '',
         }
       })
@@ -216,7 +263,12 @@ export default function ExamEditor() {
       if (!q.text.trim()) return `${t('create.questionN', { n: i + 1 })}: ${t('create.questionText')}`
       const filled = q.options.filter((o) => o.text.trim())
       if (filled.length < 2) return `${t('create.questionN', { n: i + 1 })}: ${t('create.addOption')}`
+      if (filled.length > LETTERS.length)
+        return `${t('create.questionN', { n: i + 1 })}: ${t('create.maxOptions')}`
       if (q.correct.length === 0) return `${t('create.questionN', { n: i + 1 })}: ${t('create.markCorrect')}`
+      if (q.type === 'single' && q.correct.length !== 1) {
+        return `${t('create.questionN', { n: i + 1 })}: ${t('create.singleOnlyOne')}`
+      }
     }
     return ''
   }
@@ -428,15 +480,23 @@ export default function ExamEditor() {
                   return (
                     <div key={o.key} className="flex items-center gap-2">
                       <button
+                        type="button"
                         onClick={() => toggleCorrect(qi, o.key)}
                         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 text-sm font-bold transition-all ${
                           isCorrect
-                            ? 'border-emerald-500 bg-emerald-500 text-white'
+                            ? 'border-emerald-500 bg-emerald-500 text-white shadow-sm shadow-emerald-500/30'
                             : 'border-slate-300 text-slate-500 hover:border-brand-400 dark:border-slate-600'
                         }`}
                         title={t('create.markCorrect')}
                       >
-                        {isCorrect ? <LuCheck className="h-4 w-4" /> : o.key}
+                        {isCorrect ? (
+                          <span className="flex items-center text-xs font-bold">
+                            {o.key}
+                            <LuCheck className="ml-0.5 h-3.5 w-3.5 stroke-[3]" />
+                          </span>
+                        ) : (
+                          o.key
+                        )}
                       </button>
                       <input
                         value={o.text}
@@ -445,6 +505,7 @@ export default function ExamEditor() {
                         className="flex-1 rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800"
                       />
                       <button
+                        type="button"
                         onClick={() => removeOption(qi, oi)}
                         disabled={q.options.length <= 2}
                         className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-100 hover:text-rose-500 disabled:opacity-30 dark:hover:bg-slate-800"
@@ -458,10 +519,11 @@ export default function ExamEditor() {
 
               {q.options.length < LETTERS.length && (
                 <button
+                  type="button"
                   onClick={() => addOption(qi)}
                   className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:underline dark:text-brand-400"
                 >
-                  <LuPlus className="h-4 w-4" /> {t('create.addOption')}
+                  <LuPlus className="h-4 w-4" /> {t('create.addOption')} ({q.options.length}/{LETTERS.length})
                 </button>
               )}
 

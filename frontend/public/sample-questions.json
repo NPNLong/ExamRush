@@ -1,12 +1,12 @@
 {
-  "title": "Bài thi mẫu — Kiến thức tổng hợp",
-  "description": "Đây là file JSON mẫu. Hãy thay nội dung bằng câu hỏi của bạn rồi import lại.",
+  "title": "Bài thi mẫu — Trắc nghiệm tổng hợp (Hỗ trợ 1 hoặc nhiều đáp án, tối đa 20 lựa chọn)",
+  "description": "File JSON mẫu của ExamRush. Hỗ trợ câu hỏi chọn 1 đáp án ('single') hoặc chọn nhiều đáp án ('multiple') với số lượng lựa chọn từ 2 lên đến tối đa 20 lựa chọn (A đến T).",
   "image_url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
-  "time_limit_seconds": 600,
+  "time_limit_seconds": 1800,
   "questions": [
     {
       "type": "single",
-      "text": "Thủ đô của Việt Nam là thành phố nào?",
+      "text": "Thủ đô của nước Cộng hòa Xã hội Chủ nghĩa Việt Nam là thành phố nào?",
       "options": [
         { "key": "A", "text": "Thành phố Hồ Chí Minh" },
         { "key": "B", "text": "Đà Nẵng" },
@@ -14,19 +14,63 @@
         { "key": "D", "text": "Hải Phòng" }
       ],
       "correct": ["C"],
-      "explanation": "Hà Nội là thủ đô của Việt Nam."
+      "explanation": "Hà Nội là thủ đô của Việt Nam từ năm 1976."
     },
     {
       "type": "multiple",
-      "text": "Những ngôn ngữ nào sau đây là ngôn ngữ lập trình?",
+      "text": "Trong các ngôn ngữ sau, những ngôn ngữ nào là ngôn ngữ lập trình?",
       "options": [
         { "key": "A", "text": "Python" },
         { "key": "B", "text": "HTML" },
         { "key": "C", "text": "JavaScript" },
-        { "key": "D", "text": "Java" }
+        { "key": "D", "text": "CSS" },
+        { "key": "E", "text": "Rust" },
+        { "key": "F", "text": "JSON" }
       ],
-      "correct": ["A", "C", "D"],
-      "explanation": "HTML là ngôn ngữ đánh dấu, không phải ngôn ngữ lập trình."
+      "correct": ["A", "C", "E"],
+      "explanation": "Python, JavaScript và Rust là ngôn ngữ lập trình. HTML và CSS là ngôn ngữ đánh dấu/định dạng, JSON là định dạng truyền tải dữ liệu."
+    },
+    {
+      "type": "multiple",
+      "text": "Trong danh sách 20 giao thức và công nghệ mạng dưới đây, hãy chọn TẤT CẢ các giao thức hoạt động tại tầng Ứng dụng (Application Layer - Tầng 7 mô hình OSI):",
+      "options": [
+        { "key": "A", "text": "HTTP / HTTPS" },
+        { "key": "B", "text": "TCP" },
+        { "key": "C", "text": "DNS" },
+        { "key": "D", "text": "UDP" },
+        { "key": "E", "text": "FTP / SFTP" },
+        { "key": "F", "text": "IP (IPv4, IPv6)" },
+        { "key": "G", "text": "SMTP" },
+        { "key": "H", "text": "ICMP" },
+        { "key": "I", "text": "SSH" },
+        { "key": "J", "text": "ARP" },
+        { "key": "K", "text": "DHCP" },
+        { "key": "L", "text": "Ethernet" },
+        { "key": "M", "text": "Telnet" },
+        { "key": "N", "text": "BGP" },
+        { "key": "O", "text": "SNMP" },
+        { "key": "P", "text": "OSPF" },
+        { "key": "Q", "text": "WebSocket" },
+        { "key": "R", "text": "PPP" },
+        { "key": "S", "text": "NTP" },
+        { "key": "T", "text": "IMAP / POP3" }
+      ],
+      "correct": ["A", "C", "E", "G", "I", "K", "M", "O", "Q", "S", "T"],
+      "explanation": "Các giao thức tầng Ứng dụng bao gồm: HTTP/HTTPS, DNS, FTP/SFTP, SMTP, SSH, DHCP, Telnet, SNMP, WebSocket, NTP, IMAP/POP3. Các giao thức khác: TCP/UDP (Giao vận), IP/ICMP/BGP/OSPF (Mạng), ARP/Ethernet/PPP (Liên kết dữ liệu)."
+    },
+    {
+      "type": "multiple",
+      "text": "Những hệ điều hành nào sau đây sử dụng nhân Linux (Linux kernel)? (Định dạng options mảng chuỗi gọn nhẹ)",
+      "options": [
+        "Ubuntu",
+        "Windows 11",
+        "Android",
+        "macOS",
+        "Debian",
+        "Red Hat Enterprise Linux (RHEL)"
+      ],
+      "correct": ["A", "C", "E", "F"],
+      "explanation": "Ubuntu, Android, Debian và RHEL đều dựa trên nhân Linux. macOS dựa trên nhân XNU/Darwin, Windows sử dụng nhân Windows NT."
     }
   ]
 }

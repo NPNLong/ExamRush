@@ -292,11 +292,12 @@ Chỉ tạo câu hỏi dựa trên nội dung tài liệu tôi gửi.
 
 ## 2. Số lượng và cấu trúc câu hỏi
 
-Tạo đúng **50 câu hỏi trắc nghiệm**, mỗi câu có 4 lựa chọn A, B, C, D.
+Tạo đúng **50 câu hỏi trắc nghiệm**. Có thể bao gồm cả câu hỏi **chọn 1 đáp án** và câu hỏi **chọn nhiều đáp án**. Mỗi câu có từ 2 đến tối đa 20 lựa chọn (A, B, C, D, ... T).
 
 Yêu cầu:
 
-* Chỉ có 1 đáp án đúng.
+* Với câu chọn 1 đáp án: `type` là `"single"`, chỉ có đúng 1 đáp án đúng trong mảng `correct`.
+* Với câu chọn nhiều đáp án: `type` là `"multiple"`, có thể có từ 2 đáp án đúng trở lên trong mảng `correct`.
 * Không để lộ đáp án trong câu hỏi.
 * Không dùng quá nhiều câu kiểu “Tất cả đáp án trên”.
 * Câu hỏi rõ ràng, đúng trọng tâm ôn thi.
@@ -372,7 +373,7 @@ Sau khi tạo câu hỏi, hãy xuất ra **MỘT khối JSON hợp lệ** đúng
   "questions": [
     {
       "type": "single",
-      "text": "Nội dung câu hỏi?",
+      "text": "Nội dung câu hỏi chọn 1 đáp án?",
       "options": [
         { "key": "A", "text": "Lựa chọn A" },
         { "key": "B", "text": "Lựa chọn B" },
@@ -381,6 +382,19 @@ Sau khi tạo câu hỏi, hãy xuất ra **MỘT khối JSON hợp lệ** đúng
       ],
       "correct": ["B"],
       "explanation": "Giải thích ngắn gọn vì sao đúng. [Độ khó: Trung bình | Chủ đề: Xác thực | Nguồn: slide 12]"
+    },
+    {
+      "type": "multiple",
+      "text": "Nội dung câu hỏi chọn nhiều đáp án (có thể lên tới 20 lựa chọn A-T)?",
+      "options": [
+        { "key": "A", "text": "Phương án đúng thứ nhất" },
+        { "key": "B", "text": "Phương án nhiễu B" },
+        { "key": "C", "text": "Phương án đúng thứ hai" },
+        { "key": "D", "text": "Phương án đúng thứ ba" },
+        { "key": "E", "text": "Phương án nhiễu E" }
+      ],
+      "correct": ["A", "C", "D"],
+      "explanation": "Giải thích chi tiết các đáp án đúng và vì sao các đáp án còn lại sai."
     }
   ]
 }
@@ -388,9 +402,9 @@ Sau khi tạo câu hỏi, hãy xuất ra **MỘT khối JSON hợp lệ** đúng
 
 Quy định JSON BẮT BUỘC:
 
-* `type` luôn là `"single"`.
-* Mỗi câu có đúng 4 phần tử trong `options` với `key` lần lượt là `"A"`, `"B"`, `"C"`, `"D"`.
-* `correct` là một mảng chứa **đúng 1** key, ví dụ `["B"]`.
+* `type` là `"single"` (chọn 1 đáp án) hoặc `"multiple"` (chọn nhiều đáp án).
+* Mỗi câu có từ 2 đến tối đa 20 lựa chọn trong `options` với `key` theo thứ tự chữ cái (`"A"`, `"B"`, `"C"`, `"D"`, ... lên tới `"T"`). Hoặc `options` có thể là mảng chuỗi gọn: `["Lựa chọn A", "Lựa chọn B", ...]`.
+* `correct` là một mảng chứa các key đáp án đúng (ví dụ: `["B"]` đối với `"single"`, hoặc `["A", "C", "D"]` đối với `"multiple"`).
 * `explanation` gồm phần giải thích ngắn, kèm theo độ khó / chủ đề / nguồn đặt trong ngoặc vuông ở cuối: `[Độ khó: ... | Chủ đề: ... | Nguồn: ...]`.
 * `title` đặt theo tên chương, `time_limit_seconds` để `3000` (có thể đổi, hoặc `null` nếu không giới hạn), `image_url` để chuỗi rỗng `""`.
 * Mảng `questions` phải có đúng 50 phần tử.
@@ -458,13 +472,40 @@ Use this shape in the exam editor's **Import from JSON** option:
   "questions": [
     {
       "type": "single",
-      "text": "What is the correct answer?",
+      "text": "Single choice question: What is the capital of Vietnam?",
       "options": [
-        { "key": "A", "text": "Option A" },
-        { "key": "B", "text": "Option B" }
+        { "key": "A", "text": "Ho Chi Minh City" },
+        { "key": "B", "text": "Da Nang" },
+        { "key": "C", "text": "Hanoi" },
+        { "key": "D", "text": "Hai Phong" }
       ],
-      "correct": ["A"],
-      "explanation": "Optional explanation"
+      "correct": ["C"],
+      "explanation": "Hanoi is the capital of Vietnam."
+    },
+    {
+      "type": "multiple",
+      "text": "Multiple choice question (up to 20 options A-T): Which of the following are programming languages?",
+      "options": [
+        { "key": "A", "text": "Python" },
+        { "key": "B", "text": "HTML" },
+        { "key": "C", "text": "JavaScript" },
+        { "key": "D", "text": "CSS" },
+        { "key": "E", "text": "Rust" }
+      ],
+      "correct": ["A", "C", "E"],
+      "explanation": "Python, JavaScript, and Rust are programming languages."
+    },
+    {
+      "type": "multiple",
+      "text": "Compact string array options format:",
+      "options": [
+        "Ubuntu",
+        "Windows 11",
+        "Android",
+        "Debian"
+      ],
+      "correct": ["A", "C", "D"],
+      "explanation": "Ubuntu, Android, and Debian use the Linux kernel."
     }
   ]
 }
@@ -472,12 +513,14 @@ Use this shape in the exam editor's **Import from JSON** option:
 
 | Field | Notes |
 | --- | --- |
-| `type` | `"single"` or `"multiple"`. |
-| `correct` | Array of option `key`s. |
-| `time_limit_seconds` | Omit or set `null` for no timer. |
-| `explanation` | Optional. |
+| `type` | `"single"` (1 answer) or `"multiple"` (1 or more answers). |
+| `options` | Array of 2 to 20 options: objects `[{"key": "A", "text": "..."}]` or strings `["Option A", "Option B", ...]`. Keys follow letters `A` through `T`. |
+| `correct` | Array of correct option `key`s, e.g. `["C"]` or `["A", "C", "E"]`. |
+| `time_limit_seconds` | Seconds allowed. Omit or set `null` for no timer. |
+| `explanation` | Optional explanation shown during review or instant feedback mode. |
 
 ---
+
 
 ## 📡 API Reference
 
