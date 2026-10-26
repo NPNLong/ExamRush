@@ -23,8 +23,8 @@ Tạo đúng **50 câu hỏi trắc nghiệm**. Có thể bao gồm cả câu h�
 
 Yêu cầu:
 
-* Với câu chọn 1 đáp án: `type` là `"single"`, chỉ có đúng 1 đáp án đúng trong mảng `correct`.
-* Với câu chọn nhiều đáp án: `type` là `"multiple"`, có thể có từ 2 đáp án đúng trở lên trong mảng `correct`.
+* Với câu chọn 1 đáp án: \`type\` là \`"single"\`, chỉ có đúng 1 đáp án đúng trong mảng \`correct\`.
+* Với câu chọn nhiều đáp án: \`type\` là \`"multiple"\`, có thể có từ 2 đáp án đúng trở lên trong mảng \`correct\`.
 * Không để lộ đáp án trong câu hỏi.
 * Không dùng quá nhiều câu kiểu “Tất cả đáp án trên”.
 * Câu hỏi rõ ràng, đúng trọng tâm ôn thi.

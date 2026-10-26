@@ -12,6 +12,7 @@ import {
   LuUser,
   LuShuffle,
   LuEye,
+  LuInfinity,
 } from 'react-icons/lu'
 import { examsApi } from '../lib/api'
 import { useI18n } from '../context/I18nContext'
@@ -24,6 +25,7 @@ import Pagination from '../components/Pagination'
 const PER_PAGE = 9
 export const SHUFFLE_KEY = 'examrush_shuffle'
 export const INSTANT_FEEDBACK_KEY = 'examrush_instant_feedback'
+export const UNLIMITED_TIME_KEY = 'examrush_unlimited_time'
 
 export default function Practice() {
   const { t } = useI18n()
@@ -39,6 +41,9 @@ export default function Practice() {
   const [instantFeedback, setInstantFeedback] = useState(
     () => localStorage.getItem(INSTANT_FEEDBACK_KEY) === '1',
   )
+  const [unlimitedTime, setUnlimitedTime] = useState(
+    () => localStorage.getItem(UNLIMITED_TIME_KEY) === '1',
+  )
 
   useEffect(() => {
     localStorage.setItem(SHUFFLE_KEY, shuffle ? '1' : '0')
@@ -47,6 +52,10 @@ export default function Practice() {
   useEffect(() => {
     localStorage.setItem(INSTANT_FEEDBACK_KEY, instantFeedback ? '1' : '0')
   }, [instantFeedback])
+
+  useEffect(() => {
+    localStorage.setItem(UNLIMITED_TIME_KEY, unlimitedTime ? '1' : '0')
+  }, [unlimitedTime])
 
   const load = () => {
     setLoading(true)
@@ -170,6 +179,33 @@ export default function Practice() {
               <span
                 className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${
                   shuffle ? 'left-[1.125rem]' : 'left-0.5'
+                }`}
+              />
+            </span>
+          </button>
+
+          <button
+            type="button"
+            role="switch"
+            aria-checked={unlimitedTime}
+            onClick={() => setUnlimitedTime((s) => !s)}
+            title={t('practice.unlimitedTimeHint')}
+            className={`inline-flex shrink-0 items-center gap-2.5 rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition-colors ${
+              unlimitedTime
+                ? 'border-indigo-300 bg-indigo-50 text-indigo-700 dark:border-indigo-500/40 dark:bg-indigo-500/10 dark:text-indigo-300'
+                : 'border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800'
+            }`}
+          >
+            <LuInfinity className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+            {t('practice.unlimitedTime')}
+            <span
+              className={`relative h-5 w-9 rounded-full transition-colors ${
+                unlimitedTime ? 'bg-gradient-to-r from-indigo-500 to-violet-500' : 'bg-slate-300 dark:bg-slate-600'
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${
+                  unlimitedTime ? 'left-[1.125rem]' : 'left-0.5'
                 }`}
               />
             </span>

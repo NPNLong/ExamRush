@@ -6,6 +6,7 @@ import {
   LuChevronLeft,
   LuChevronRight,
   LuCheck,
+  LuCheckCheck,
   LuX,
   LuSend,
   LuFlag,
@@ -14,6 +15,9 @@ import {
   LuEyeOff,
   LuLightbulb,
   LuInfo,
+  LuRefreshCw,
+  LuListChecks,
+  LuInfinity,
 } from 'react-icons/lu'
 import { examsApi } from '../lib/api'
 import { useI18n } from '../context/I18nContext'
@@ -21,7 +25,7 @@ import { useDialog } from '../context/DialogContext'
 import { useEffects } from '../context/EffectsContext'
 import { Spinner } from '../components/PageWrapper'
 import TechBackground from '../components/TechBackground'
-import { SHUFFLE_KEY, INSTANT_FEEDBACK_KEY } from './Practice'
+import { SHUFFLE_KEY, INSTANT_FEEDBACK_KEY, UNLIMITED_TIME_KEY } from './Practice'
 import type { ExamDetailPublic } from '../lib/types'
 
 function fmtClock(sec: number) {
@@ -58,11 +62,43 @@ export default function ExamTake() {
   const [instantFeedback, setInstantFeedback] = useState(
     () => localStorage.getItem(INSTANT_FEEDBACK_KEY) === '1',
   )
+  const [unlimitedTime, setUnlimitedTime] = useState(
+    () => localStorage.getItem(UNLIMITED_TIME_KEY) === '1',
+  )
+  const [confirmedQuestions, setConfirmedQuestions] = useState<Set<number>>(new Set())
+
+  const isQuestionRevealed = useCallback(
+    (question: ExamDetailPublic['questions'][number]) => {
+      if (!instantFeedback) return false
+      if (question.type === 'single') {
+        return (answers[question.id] || []).length > 0
+      }
+      return confirmedQuestions.has(question.id)
+    },
+    [instantFeedback, answers, confirmedQuestions],
+  )
 
   const toggleInstantFeedback = () => {
     setInstantFeedback((prev) => {
       const next = !prev
       localStorage.setItem(INSTANT_FEEDBACK_KEY, next ? '1' : '0')
+      return next
+    })
+  }
+
+  const toggleUnlimitedTime = () => {
+    setUnlimitedTime((prev) => {
+      const next = !prev
+      localStorage.setItem(UNLIMITED_TIME_KEY, next ? '1' : '0')
+      if (next) {
+        setTimeLeft(null)
+      } else {
+        if (exam?.time_limit_seconds && exam.time_limit_seconds > 0) {
+          const elapsed = Math.round((Date.now() - startRef.current) / 1000)
+          const remaining = Math.max(0, exam.time_limit_seconds - elapsed)
+          setTimeLeft(remaining)
+        }
+      }
       return next
     })
   }
@@ -77,7 +113,12 @@ export default function ExamTake() {
         const shouldShuffle = localStorage.getItem(SHUFFLE_KEY) === '1'
         const data = shouldShuffle ? { ...e, questions: shuffleArray(e.questions) } : e
         setExam(data)
-        if (data.time_limit_seconds && data.time_limit_seconds > 0) setTimeLeft(data.time_limit_seconds)
+        const shouldUnlimited = localStorage.getItem(UNLIMITED_TIME_KEY) === '1'
+        if (!shouldUnlimited && data.time_limit_seconds && data.time_limit_seconds > 0) {
+          setTimeLeft(data.time_limit_seconds)
+        } else {
+          setTimeLeft(null)
+        }
         startRef.current = Date.now()
       })
       .catch(() => navigate('/practice'))
@@ -130,6 +171,7 @@ export default function ExamTake() {
   }, [timeLeft, doSubmit, t, dialog])
 
   const toggle = (q: ExamDetailPublic['questions'][number], key: string) => {
+    if (isQuestionRevealed(q)) return
     setAnswers((prev) => {
       const cur = prev[q.id] || []
       if (q.type === 'single') return { ...prev, [q.id]: [key] }
@@ -137,6 +179,27 @@ export default function ExamTake() {
         ...prev,
         [q.id]: cur.includes(key) ? cur.filter((k) => k !== key) : [...cur, key],
       }
+    })
+  }
+
+  const handleConfirmAnswer = (qid: number) => {
+    setConfirmedQuestions((prev) => {
+      const next = new Set(prev)
+      next.add(qid)
+      return next
+    })
+  }
+
+  const handleRetryQuestion = (qid: number) => {
+    setConfirmedQuestions((prev) => {
+      const next = new Set(prev)
+      next.delete(qid)
+      return next
+    })
+    setAnswers((prev) => {
+      const next = { ...prev }
+      delete next[qid]
+      return next
     })
   }
 
@@ -208,6 +271,27 @@ export default function ExamTake() {
             </button>
             <button
               type="button"
+              onClick={toggleUnlimitedTime}
+              aria-pressed={unlimitedTime}
+              title={unlimitedTime ? t('take.unlimitedOff') : t('take.unlimitedOn')}
+              className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-bold transition-all ${
+                unlimitedTime
+                  ? 'border-indigo-300/60 bg-indigo-100 text-indigo-800 shadow-lg shadow-indigo-500/15 dark:border-indigo-400/35 dark:bg-indigo-400/15 dark:text-indigo-300'
+                  : 'border-slate-300 bg-white/65 text-slate-500 hover:bg-slate-100 hover:text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-cyan-100/[0.65] dark:hover:bg-cyan-300/10 dark:hover:text-cyan-100'
+              }`}
+            >
+              <LuInfinity className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+              <span className="hidden sm:inline">{t('take.unlimitedTime')}</span>
+              <span
+                className={`inline-block h-2 w-2 rounded-full ${
+                  unlimitedTime
+                    ? 'bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.8)]'
+                    : 'bg-slate-400 dark:bg-slate-600'
+                }`}
+              />
+            </button>
+            <button
+              type="button"
               onClick={toggleEffects}
               aria-pressed={effectsEnabled}
               title={effectsEnabled ? t('take.effectsOff') : t('take.effectsOn')}
@@ -223,7 +307,7 @@ export default function ExamTake() {
             <div
               className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-bold tabular-nums shadow-lg ${
                 timeLeft === null
-                  ? 'border-slate-300 bg-white/65 text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-cyan-100/70'
+                  ? 'border-indigo-300/40 bg-indigo-50/70 text-indigo-700 dark:border-indigo-400/25 dark:bg-indigo-400/10 dark:text-indigo-200'
                   : lowTime
                     ? `${effectsEnabled ? 'animate-pulse' : ''} border-rose-300/60 bg-rose-50 text-rose-600 shadow-rose-500/10 dark:border-rose-300/40 dark:bg-rose-500/15 dark:text-rose-200 dark:shadow-rose-500/20`
                     : 'border-brand-200 bg-brand-50 text-brand-700 shadow-brand-500/10 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100 dark:shadow-cyan-500/20'
@@ -286,89 +370,125 @@ export default function ExamTake() {
               <h2 className="text-xl font-semibold leading-relaxed text-slate-950 dark:text-white sm:text-2xl">{q.text}</h2>
 
               <div className="mt-6 space-y-3">
-                {q.options.map((o) => {
+                {(() => {
+                  const qRevealed = isQuestionRevealed(q)
                   const selectedKeys = answers[q.id] || []
-                  const isSelected = selectedKeys.includes(o.key)
-                  const hasAnswered = selectedKeys.length > 0
                   const correctKeys = q.correct || []
-                  const isCorrectOption = correctKeys.includes(o.key)
 
-                  const showInstant = instantFeedback && hasAnswered
+                  return q.options.map((o) => {
+                    const isSelected = selectedKeys.includes(o.key)
+                    const isCorrectOption = correctKeys.includes(o.key)
+                    const showInstant = qRevealed
 
-                  let containerStyle = ''
-                  let badgeStyle = ''
-                  let badgeContent = <>{isSelected ? <LuCheck className="h-5 w-5" /> : o.key}</>
+                    let containerStyle = ''
+                    let badgeStyle = ''
+                    let badgeContent = <>{isSelected ? <LuCheck className="h-5 w-5" /> : o.key}</>
 
-                  if (showInstant) {
-                    if (isCorrectOption) {
-                      containerStyle =
-                        'border-emerald-500/80 bg-emerald-500/[0.14] shadow-[0_0_24px_rgba(16,185,129,0.22)] dark:border-emerald-400 dark:bg-emerald-400/15'
-                      badgeStyle =
-                        'border-emerald-400 bg-emerald-500 text-white shadow-[0_0_16px_rgba(16,185,129,0.5)]'
-                      badgeContent = <LuCheck className="h-5 w-5 stroke-[2.5]" />
-                    } else if (isSelected) {
-                      containerStyle =
-                        'border-rose-500/80 bg-rose-500/[0.12] shadow-[0_0_24px_rgba(244,63,94,0.22)] dark:border-rose-400 dark:bg-rose-500/15'
-                      badgeStyle =
-                        'border-rose-400 bg-rose-500 text-white shadow-[0_0_16px_rgba(244,63,94,0.5)]'
-                      badgeContent = <LuX className="h-5 w-5 stroke-[2.5]" />
+                    if (showInstant) {
+                      if (isCorrectOption) {
+                        containerStyle =
+                          'border-emerald-500/80 bg-emerald-500/[0.14] shadow-[0_0_24px_rgba(16,185,129,0.22)] dark:border-emerald-400 dark:bg-emerald-400/15'
+                        badgeStyle =
+                          'border-emerald-400 bg-emerald-500 text-white shadow-[0_0_16px_rgba(16,185,129,0.5)]'
+                        badgeContent = <LuCheck className="h-5 w-5 stroke-[2.5]" />
+                      } else if (isSelected) {
+                        containerStyle =
+                          'border-rose-500/80 bg-rose-500/[0.12] shadow-[0_0_24px_rgba(244,63,94,0.22)] dark:border-rose-400 dark:bg-rose-500/15'
+                        badgeStyle =
+                          'border-rose-400 bg-rose-500 text-white shadow-[0_0_16px_rgba(244,63,94,0.5)]'
+                        badgeContent = <LuX className="h-5 w-5 stroke-[2.5]" />
+                      } else {
+                        containerStyle =
+                          'border-slate-200/70 bg-white/40 opacity-60 dark:border-white/5 dark:bg-white/[0.02] dark:opacity-45'
+                        badgeStyle =
+                          'border-slate-300 text-slate-400 dark:border-white/10 dark:text-white/40'
+                        badgeContent = <>{o.key}</>
+                      }
                     } else {
-                      containerStyle =
-                        'border-slate-200/70 bg-white/40 opacity-60 dark:border-white/5 dark:bg-white/[0.02] dark:opacity-45'
-                      badgeStyle =
-                        'border-slate-300 text-slate-400 dark:border-white/10 dark:text-white/40'
-                      badgeContent = <>{o.key}</>
+                      if (isSelected) {
+                        containerStyle =
+                          'border-cyan-300/70 bg-cyan-300/[0.14] shadow-[0_0_28px_rgba(34,211,238,0.2)]'
+                        badgeStyle =
+                          'border-cyan-200 bg-cyan-300 text-slate-950 shadow-[0_0_18px_rgba(34,211,238,0.5)]'
+                      } else {
+                        containerStyle =
+                          'border-slate-200 bg-white/75 hover:border-brand-300 hover:bg-brand-50/60 dark:border-white/10 dark:bg-white/[0.06] dark:hover:border-cyan-300/40 dark:hover:bg-cyan-300/10'
+                        badgeStyle =
+                          'border-slate-300 text-slate-600 dark:border-cyan-200/25 dark:text-cyan-100/75'
+                      }
                     }
-                  } else {
-                    if (isSelected) {
-                      containerStyle =
-                        'border-cyan-300/70 bg-cyan-300/[0.14] shadow-[0_0_28px_rgba(34,211,238,0.2)]'
-                      badgeStyle =
-                        'border-cyan-200 bg-cyan-300 text-slate-950 shadow-[0_0_18px_rgba(34,211,238,0.5)]'
-                    } else {
-                      containerStyle =
-                        'border-slate-200 bg-white/75 hover:border-brand-300 hover:bg-brand-50/60 dark:border-white/10 dark:bg-white/[0.06] dark:hover:border-cyan-300/40 dark:hover:bg-cyan-300/10'
-                      badgeStyle =
-                        'border-slate-300 text-slate-600 dark:border-cyan-200/25 dark:text-cyan-100/75'
-                    }
-                  }
 
-                  return (
-                    <button
-                      key={o.key}
-                      onClick={() => toggle(q, o.key)}
-                      className={`exam-choice flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition-all ${containerStyle}`}
-                    >
-                      <span
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center border-2 text-sm font-bold transition-colors ${
-                          q.type === 'single' ? 'rounded-full' : 'rounded-lg'
-                        } ${badgeStyle}`}
+                    return (
+                      <button
+                        key={o.key}
+                        type="button"
+                        disabled={qRevealed}
+                        onClick={() => toggle(q, o.key)}
+                        className={`exam-choice flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition-all ${
+                          qRevealed ? 'cursor-default' : 'cursor-pointer'
+                        } ${containerStyle}`}
                       >
-                        {badgeContent}
-                      </span>
-                      <span className="flex-1 text-[15px] text-slate-800 dark:text-slate-100">
-                        {o.text}
-                      </span>
-                      {showInstant && isCorrectOption && (
-                        <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-400/40 bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-800 dark:bg-emerald-400/20 dark:text-emerald-300">
-                          <LuCheck className="h-3.5 w-3.5 stroke-[2.5]" />
-                          {t('take.correctChoice')}
+                        <span
+                          className={`flex h-9 w-9 shrink-0 items-center justify-center border-2 text-sm font-bold transition-colors ${
+                            q.type === 'single' ? 'rounded-full' : 'rounded-lg'
+                          } ${badgeStyle}`}
+                        >
+                          {badgeContent}
                         </span>
-                      )}
-                      {showInstant && isSelected && !isCorrectOption && (
-                        <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-rose-400/40 bg-rose-100 px-2.5 py-0.5 text-xs font-bold text-rose-800 dark:bg-rose-400/20 dark:text-rose-300">
-                          <LuX className="h-3.5 w-3.5 stroke-[2.5]" />
-                          {t('take.yourChoice')}
+                        <span className="flex-1 text-[15px] text-slate-800 dark:text-slate-100">
+                          {o.text}
                         </span>
-                      )}
-                    </button>
-                  )
-                })}
+                        {showInstant && isCorrectOption && (
+                          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-400/40 bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-800 dark:bg-emerald-400/20 dark:text-emerald-300">
+                            <LuCheck className="h-3.5 w-3.5 stroke-[2.5]" />
+                            {t('take.correctChoice')}
+                          </span>
+                        )}
+                        {showInstant && isSelected && !isCorrectOption && (
+                          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-rose-400/40 bg-rose-100 px-2.5 py-0.5 text-xs font-bold text-rose-800 dark:bg-rose-400/20 dark:text-rose-300">
+                            <LuX className="h-3.5 w-3.5 stroke-[2.5]" />
+                            {t('take.yourChoice')}
+                          </span>
+                        )}
+                      </button>
+                    )
+                  })
+                })()}
               </div>
+
+              {/* Action bar for multiple choice question in instantFeedback mode */}
+              {instantFeedback && q.type === 'multiple' && !isQuestionRevealed(q) && (
+                <motion.div
+                  initial={effectsEnabled ? { opacity: 0, y: 10 } : false}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-brand-200/80 bg-brand-50/70 p-4 shadow-sm dark:border-cyan-300/25 dark:bg-cyan-950/30"
+                >
+                  <div className="flex items-center gap-2.5 text-xs font-medium text-slate-700 dark:text-cyan-100 sm:text-sm">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-500/15 text-brand-600 dark:bg-cyan-300/15 dark:text-cyan-300">
+                      <LuListChecks className="h-4 w-4" />
+                    </span>
+                    <span>
+                      {(answers[q.id] || []).length === 0
+                        ? t('take.multipleSelectPrompt')
+                        : t('take.multipleSelectedCount', { count: (answers[q.id] || []).length })}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleConfirmAnswer(q.id)}
+                    disabled={(answers[q.id] || []).length === 0}
+                    className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 transition-all hover:scale-[1.02] hover:shadow-emerald-500/40 active:scale-95 disabled:pointer-events-none disabled:opacity-40"
+                  >
+                    <LuCheckCheck className="h-4 w-4 stroke-[2.5]" />
+                    {t('take.confirmAnswer')}
+                  </button>
+                </motion.div>
+              )}
 
               {/* Instant feedback card */}
               <AnimatePresence>
-                {instantFeedback && (answers[q.id] || []).length > 0 && (() => {
+                {isQuestionRevealed(q) && (() => {
                   const selectedKeys = answers[q.id] || []
                   const correctKeys = q.correct || []
                   const isAllCorrect =
@@ -391,39 +511,51 @@ export default function ExamTake() {
                             : 'border-rose-300/70 bg-gradient-to-br from-rose-500/10 via-rose-500/5 to-transparent text-rose-950 shadow-[0_0_30px_rgba(244,63,94,0.12)] dark:border-rose-400/30 dark:text-rose-100'
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <span
-                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-white shadow-md ${
-                            isAllCorrect
-                              ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-emerald-500/30'
-                              : isPartiallyCorrect
-                                ? 'bg-gradient-to-br from-amber-400 to-amber-600 shadow-amber-500/30'
-                                : 'bg-gradient-to-br from-rose-400 to-rose-600 shadow-rose-500/30'
-                          }`}
-                        >
-                          {isAllCorrect ? (
-                            <LuCheck className="h-5 w-5 stroke-[2.5]" />
-                          ) : isPartiallyCorrect ? (
-                            <LuInfo className="h-5 w-5 stroke-[2.5]" />
-                          ) : (
-                            <LuX className="h-5 w-5 stroke-[2.5]" />
-                          )}
-                        </span>
-                        <div>
-                          <h3 className="font-bold sm:text-base">
-                            {isAllCorrect
-                              ? t('take.instantResultCorrect')
-                              : isPartiallyCorrect
-                                ? t('take.instantResultPartial')
-                                : t('take.instantResultIncorrect')}
-                          </h3>
-                          <p className="mt-0.5 text-xs opacity-90 sm:text-sm">
-                            {t('take.correctAnswerIs')}{' '}
-                            <strong className="font-bold underline decoration-emerald-500 decoration-2 underline-offset-2">
-                              {correctKeys.join(', ')}
-                            </strong>
-                          </p>
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                          <span
+                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-white shadow-md ${
+                              isAllCorrect
+                                ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-emerald-500/30'
+                                : isPartiallyCorrect
+                                  ? 'bg-gradient-to-br from-amber-400 to-amber-600 shadow-amber-500/30'
+                                  : 'bg-gradient-to-br from-rose-400 to-rose-600 shadow-rose-500/30'
+                            }`}
+                          >
+                            {isAllCorrect ? (
+                              <LuCheck className="h-5 w-5 stroke-[2.5]" />
+                            ) : isPartiallyCorrect ? (
+                              <LuInfo className="h-5 w-5 stroke-[2.5]" />
+                            ) : (
+                              <LuX className="h-5 w-5 stroke-[2.5]" />
+                            )}
+                          </span>
+                          <div>
+                            <h3 className="font-bold sm:text-base">
+                              {isAllCorrect
+                                ? t('take.instantResultCorrect')
+                                : isPartiallyCorrect
+                                  ? t('take.instantResultPartial')
+                                  : t('take.instantResultIncorrect')}
+                            </h3>
+                            <p className="mt-0.5 text-xs opacity-90 sm:text-sm">
+                              {t('take.correctAnswerIs')}{' '}
+                              <strong className="font-bold underline decoration-emerald-500 decoration-2 underline-offset-2">
+                                {correctKeys.join(', ')}
+                              </strong>
+                            </p>
+                          </div>
                         </div>
+
+                        <button
+                          type="button"
+                          onClick={() => handleRetryQuestion(q.id)}
+                          title={t('take.retryQuestion')}
+                          className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-slate-300/80 bg-white/80 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur transition-all hover:bg-slate-100 hover:text-slate-900 active:scale-95 dark:border-white/15 dark:bg-white/10 dark:text-cyan-100 dark:hover:bg-cyan-300/20"
+                        >
+                          <LuRefreshCw className="h-3.5 w-3.5" />
+                          <span className="hidden sm:inline">{t('take.retryQuestion')}</span>
+                        </button>
                       </div>
 
                       {q.explanation ? (
@@ -486,6 +618,7 @@ export default function ExamTake() {
                 {instantFeedback
                   ? t('take.liveScore', {
                       correct: exam.questions.filter((item) => {
+                        if (!isQuestionRevealed(item)) return false
                         const sel = answers[item.id] || []
                         const cor = item.correct || []
                         return (
@@ -507,8 +640,9 @@ export default function ExamTake() {
                 const isCurrent = i === current
                 const isFlagged = flagged.has(qq.id)
                 const cor = qq.correct || []
+                const qqRevealed = isQuestionRevealed(qq)
                 const isTileCorrect =
-                  done && sel.length === cor.length && sel.every((k) => cor.includes(k))
+                  qqRevealed && sel.length === cor.length && sel.every((k) => cor.includes(k))
 
                 return (
                   <button
@@ -517,12 +651,12 @@ export default function ExamTake() {
                     className={`relative aspect-square rounded-lg text-sm font-semibold transition-colors ${
                       isCurrent
                         ? 'bg-gradient-to-br from-cyan-300 to-brand-500 text-slate-950 ring-2 ring-inset ring-white/70 shadow-[0_0_18px_rgba(34,211,238,0.35)]'
-                        : instantFeedback && done
+                        : qqRevealed
                           ? isTileCorrect
                             ? 'border border-emerald-400/50 bg-emerald-400/[0.22] text-emerald-800 dark:text-emerald-200 shadow-[0_0_10px_rgba(52,211,153,0.2)]'
                             : 'border border-rose-400/50 bg-rose-400/[0.22] text-rose-800 dark:text-rose-200 shadow-[0_0_10px_rgba(244,63,94,0.2)]'
                           : done
-                            ? 'border border-emerald-300/30 bg-emerald-400/[0.18] text-emerald-800 dark:text-emerald-100'
+                            ? 'border border-cyan-400/40 bg-cyan-400/[0.18] text-cyan-800 dark:text-cyan-200'
                             : 'border border-slate-200 bg-white/70 text-slate-500 hover:bg-brand-50 dark:border-white/10 dark:bg-white/[0.06] dark:text-cyan-100/[0.65] dark:hover:bg-cyan-300/10'
                     }`}
                   >
